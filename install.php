@@ -24,13 +24,21 @@ class WPBRIDGE_INSTALL
 
     function CreateSettingsTable()
     {
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+
+        if(defined('WPBRIDGE_NEEDS_UPGRADE'))
+        {
+            $this->_wpdb->query("DROP TABLE `".WPBRIDGE_SETTINGS_TABLE."`");
+            $this->_wpdb->query("DROP TABLE `".WPBRIDGE_PLAYER_STATS_TABLE."`");
+            update_option('WPBRIDGE_PLUGIN_VERSION',WPBRIDGE_PLUGIN_VERSION);
+        }
+
         $sql = "CREATE TABLE IF NOT EXISTS `".WPBRIDGE_SETTINGS_TABLE."` (
             id                  INT(11)     NOT NULL AUTO_INCREMENT,
             numactiveplayers    INT(11)     NOT NULL,
             updated             datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
             PRIMARY KEY (id)
         ) $this->_charset_collate;";
-        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
         dbDelta($sql);
     }
 

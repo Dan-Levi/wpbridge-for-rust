@@ -19,10 +19,23 @@ class WPBRIDGE
     public function __construct()
     {
         $this->DefineConstants();
+        $this->CheckVersion();
         $this->InitInstall();
         $this->InitUnInstall();
         $this->InitSettings();
         $this->InitRestApi();
+    }
+
+    /**
+     * Check version
+     */
+    public function CheckVersion()
+    {
+        $plugin_version = get_option('WPBRIDGE_PLUGIN_VERSION',0);
+        if(WPBRIDGE_PLUGIN_VERSION > $plugin_version)
+        {
+            define('WPBRIDGE_NEEDS_UPGRADE',1);
+        }
     }
 
     /**
@@ -67,7 +80,7 @@ class WPBRIDGE
     public function DefineConstants()
     {
         global $wpdb;
-
+        define( 'WPBRIDGE_PLUGIN_VERSION', '0.0.2');
         define( 'WPBRIDGE_PATH', trailingslashit( plugin_dir_path(__FILE__) ) );
         define( 'WPBRIDGE_URL', trailingslashit( plugins_url('/', __FILE__) ) );
         define( 'WPBRIDGE_SETTINGS_TABLE', $wpdb->prefix . 'wpbridge_settings' );
