@@ -4,16 +4,16 @@
  * Plugin URI: https://wpbridge.danlevi.no
  * Author: Dan-Levi Tømta
  * Author URI: https://www.danlevi.no
- * Version: 0.0.3-alpha
+ * Version: 0.0.4-alpha
  * Text Domain: wpbridge
- * Description: Enables your Wordpress site to show player stats from Rust server.
+ * Description: Integrates your Wordpress site with a Rust server to show player statistics and server information.
 */
 
 if( !defined('ABSPATH') ) : exit(); endif;
 
 class WPBRIDGE
 {
-
+    public $plugin_version = '0.0.4';
     private static $_instance = null;
 
     public function __construct()
@@ -80,12 +80,11 @@ class WPBRIDGE
     public function DefineConstants()
     {
         global $wpdb;
-        define( 'WPBRIDGE_PLUGIN_VERSION', '0.0.2');
+        define( 'WPBRIDGE_PLUGIN_VERSION', $this->plugin_version);
         define( 'WPBRIDGE_PATH', trailingslashit( plugin_dir_path(__FILE__) ) );
         define( 'WPBRIDGE_URL', trailingslashit( plugins_url('/', __FILE__) ) );
         define( 'WPBRIDGE_SETTINGS_TABLE', $wpdb->prefix . 'wpbridge_settings' );
         define( 'WPBRIDGE_PLAYER_STATS_TABLE', $wpdb->prefix . 'wpbridge_player_stats' );
-
     }
 
     /**
