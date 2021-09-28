@@ -71,6 +71,8 @@ class WPBRIDGE_INSTALL
             `growablesgathered`     INT(11)         NOT NULL,
             `chats`                 INT(11)         NOT NULL,
             `npckills`              INT(11)         NOT NULL,
+            `meleeattacks`          INT(11)         NOT NULL,
+            `mapmarkers`            INT(11)         NOT NULL,
             PRIMARY KEY (`id`)
         ) $this->_charset_collate;";
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
