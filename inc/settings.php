@@ -1,0 +1,108 @@
+<?php
+
+class WPBRIDGE_SETTINGS
+{
+    private static $_instance = null;
+
+    public function __construct()
+    {
+        $this->Add_Actions();
+    }
+    
+    function Add_Actions()
+    {
+        add_action('admin_menu', [$this,"SetupSettingsMenu"]);
+        add_action('admin_enqueue_scripts', [$this,"InitAdminJavaScript"]);
+        add_action('admin_init', [$this,"SetupSecretSection"]);
+    }
+
+    function InitAdminJavaScript()
+    {
+        wp_enqueue_script(
+            'wpbridge-admin-script',
+            WPBRIDGE_URL . 'admin/js/settings.js',
+            array('jquery'),
+            rand(),
+            true
+        );
+    }
+
+    function SetupSecretSection()
+    {
+        add_settings_section(
+            'wpbridge_settings_secret_section',
+            '',
+            '',
+            'wpbridge-settings-page'
+        );
+        register_setting(
+            'wpbridge-settings-page',
+            'wpbridge_secret_field',
+            array(
+                'type' => 'string',
+                'sanitize_callback' => 'sanitize_text_field',
+                'default' => ''
+            )
+        );
+        add_settings_field(
+            'wpbridge_secret_field',
+            __('Your Secret', 'wpbridge'),
+            [$this,'SecretSettingsFieldCallback'],
+            'wpbridge-settings-page',
+            'wpbridge_settings_secret_section'
+        );
+    }
+
+    function SecretSettingsFieldCallback()
+    {
+        $secret = get_option('wpbridge_secret_field','');
+    ?>
+        <input type="text" id="wpbridge_secret_field" class="regular-text" name="wpbridge_secret_field" value="<?php echo $secret; ?>" placeholder="<?php echo __('Please type or generate your unique secret', 'wpbridge'); ?>" />
+        <button id="wpbridge_secret_generate_button" class="button button-primary"><?php echo __('Generate', 'wpbridge'); ?></button>
+        <br>
+        <label for="wpbridgerust_settings_input_secret_field"><?php echo __('Paste this unique secret into WPBridge config file <code>[your_rust_server]/oxide/config/WPBridge.json</code>', 'wpbridgerust'); ?></label>
+    <?php
+    }
+
+    function SetupSettingsMenu()
+    {
+        add_menu_page(
+            __('WPBridge for Rust', 'wpbridge'),
+            __('WPBridge for Rust', 'wpbridge'),
+            'manage_options',
+            'wpbridge-settings-page',
+            [$this,'wpbridge_settings_template_callback'],
+            'dashicons-admin-links',
+            null
+        );
+        
+    }
+
+    function wpbridge_settings_template_callback()
+    {
+        ?>
+        <div class="wrap">
+            <h3><?php echo esc_html( get_admin_page_title() ) . ' ' . __(' - Settings', 'wpbridge'); ?></h3>
+            <hr />
+            <h1>Secret</h1>
+            <form action="options.php" method="post">
+                <?php settings_fields('wpbridge-settings-page'); ?>
+                <?php do_settings_sections('wpbridge-settings-page');?>
+                <?php submit_button( __('Save Settings', 'wpbridgerust') ); ?>
+            </form>
+        </div>
+        <?php
+    }
+
+
+    static function instance()
+    {
+        if(self::$_instance == null)
+        {
+            self::$_instance = new WPBRIDGE_SETTINGS();
+        }
+        return self::$_instance;
+    }
+}
+
+WPBRIDGE_SETTINGS::instance();
