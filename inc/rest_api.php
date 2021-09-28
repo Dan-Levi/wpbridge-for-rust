@@ -41,106 +41,35 @@ class WPBRIDGE_REST_API
         global $wpdb;
         $sql = "SELECT * FROM `".WPBRIDGE_PLAYER_STATS_TABLE."` WHERE `steamid` = '%d';";
         $existingPlayer = $wpdb->get_row($wpdb->prepare($sql,$player["SteamId"]));
-        $existingPlayer->joins                  += $player["Joins"];
-        $existingPlayer->leaves                 += $player["Leaves"];
-        $existingPlayer->deaths                 += $player["Deaths"];
-        $existingPlayer->suicides               += $player["Suicides"];
-        $existingPlayer->kills                  += $player["Kills"];
-        $existingPlayer->headshots              += $player["Headshots"];
-        $existingPlayer->wounded                += $player["Wounded"];
-        $existingPlayer->recoveries             += $player["Recoveries"];
-        $existingPlayer->crafteditems           += $player["CraftedItems"];
-        $existingPlayer->repaireditems          += $player["RepairedItems"];
-        $existingPlayer->explosivesthrown       += $player["ExplosivesThrown"];
-        $existingPlayer->voicebytes             += $player["VoiceBytes"];
-        $existingPlayer->hammerhits             += $player["HammerHits"];
-        $existingPlayer->reloads                += $player["Reloads"];
-        $existingPlayer->shots                  += $player["Shots"];
-        $existingPlayer->collectiblespickedup   += $player["CollectiblesPickedUp"];
-        $existingPlayer->growablesgathered      += $player["GrowablesGathered"];
-        $existingPlayer->chats                  += $player["Chats"];
-        $existingPlayer->npckills               += $player["NPCKills"];
-
-        $sql = "
-        UPDATE `".WPBRIDGE_PLAYER_STATS_TABLE."` SET 
-        `joins` =                       '".$existingPlayer->joins."', 
-        `leaves` =                      '".$existingPlayer->leaves."', 
-        `deaths` =                      '".$existingPlayer->deaths."', 
-        `suicides` =                    '".$existingPlayer->suicides."', 
-        `kills` =                       '".$existingPlayer->kills."', 
-        `headshots` =                   '".$existingPlayer->headshots."', 
-        `wounded` =                     '".$existingPlayer->wounded."', 
-        `recoveries` =                  '".$existingPlayer->recoveries."', 
-        `crafteditems` =                '".$existingPlayer->crafteditems."', 
-        `repaireditems` =               '".$existingPlayer->repaireditems."', 
-        `explosivesthrown` =            '".$existingPlayer->explosivesthrown."', 
-        `voicebytes` =                  '".$existingPlayer->voicebytes."', 
-        `hammerhits` =                  '".$existingPlayer->hammerhits."', 
-        `reloads` =                     '".$existingPlayer->reloads."', 
-        `shots` =                       '".$existingPlayer->shots."', 
-        `collectiblespickedup` =        '".$existingPlayer->collectiblespickedup."', 
-        `growablesgathered` =           '".$existingPlayer->growablesgathered."',
-        `chats` =                       '".$existingPlayer->chats."',
-        `npckills` =                    '".$existingPlayer->npckills."'
-        WHERE 
-        `steamid` = ".$existingPlayer->steamid.";";
-
+        $sql = "UPDATE `".WPBRIDGE_PLAYER_STATS_TABLE."` SET ";
+        foreach (array_keys($player) as $requestValue) {
+            if($requestValue == "SteamId") continue;
+            $columnName = strtolower($requestValue);
+            if($columnName == "displayname")
+            {
+                $sql .= "`$columnName` = '" . esc_sql($player[$requestValue]) . "',";
+            } else 
+            {
+                $sql .= "`$columnName` = '" . ((int)$existingPlayer->{$columnName} + (int)($player[$requestValue])) . "',";
+            }
+        }
+        $sql = chop($sql,',') . " WHERE `steamid` = '" . esc_sql($player["SteamId"]) . "';";
         $wpdb->query($sql);
-
-        
     }
 
     function InsertPlayer($player)
     {
         global $wpdb;
-        $sql = "
-        INSERT INTO `".WPBRIDGE_PLAYER_STATS_TABLE."`(
-            `steamid`,
-            `displayname`,
-            `joins`,
-            `leaves`,
-            `deaths`,
-            `suicides`,
-            `kills`,
-            `headshots`,
-            `wounded`,
-            `recoveries`,
-            `crafteditems`,
-            `repaireditems`,
-            `explosivesthrown`,
-            `voicebytes`,
-            `hammerhits`,
-            `reloads`,
-            `shots`,
-            `collectiblespickedup`,
-            `growablesgathered`,
-            `chats`,
-            `npckills`
-        ) 
-        VALUES 
-        (
-            '".esc_sql($player["SteamId"])."',
-            '".esc_sql($player["DisplayName"])."',
-            '".esc_sql($player["Joins"])."',
-            '".esc_sql($player["Leaves"])."',
-            '".esc_sql($player["Deaths"])."',
-            '".esc_sql($player["Suicides"])."',
-            '".esc_sql($player["Kills"])."',
-            '".esc_sql($player["Headshots"])."',
-            '".esc_sql($player["Wounded"])."',
-            '".esc_sql($player["Recoveries"])."',
-            '".esc_sql($player["CraftedItems"])."',
-            '".esc_sql($player["RepairedItems"])."',
-            '".esc_sql($player["ExplosivesThrown"])."',
-            '".esc_sql($player["VoiceBytes"])."',
-            '".esc_sql($player["HammerHits"])."',
-            '".esc_sql($player["Reloads"])."',
-            '".esc_sql($player["Shots"])."',
-            '".esc_sql($player["CollectiblesPickedUp"])."',
-            '".esc_sql($player["GrowablesGathered"])."',
-            '".esc_sql($player["Chats"])."',
-            '".esc_sql($player["NPCKills"])."'
-        );";
+        $sqlStart = "INSERT INTO `".WPBRIDGE_PLAYER_STATS_TABLE."`(";
+        $sqlEnd = "";
+        foreach (array_keys($player) as $requestValue) {
+            $columnName = strtolower($requestValue);
+            $sqlStart .= "`$columnName`,";
+            $sqlEnd .= "'" . esc_sql($player[$requestValue]) . "',";
+        }
+        $sqlStart = chop($sqlStart,',') . ") VALUES (";
+        $sqlEnd = chop($sqlEnd,',') . ");";
+        $sql = $sqlStart . $sqlEnd;
         $wpdb->query($sql);
     }
 
