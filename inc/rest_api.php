@@ -15,12 +15,13 @@ class WPBRIDGE_REST_API
             register_rest_route( 'wpbridge', '/secret', array(
                 'methods' => 'POST',
                 'callback' => [$this,"Secret_Callback"],
+                'permission_callback' => '__return_true'
             ));
             register_rest_route( 'wpbridge', '/player-stats', array(
                 'methods' => 'POST',
                 'callback' => [$this,"Player_Stats_POST_Callback"],
+                'permission_callback' => '__return_true'
             ));
-            
          });
     }
 
@@ -110,23 +111,6 @@ class WPBRIDGE_REST_API
         if($req["Secret"] != get_option('wpbridge_secret_field')) return $this->ReturnError(401,"Secret mismatch");
         return $this->ReturnSuccess(200, "Ready");
     }
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
 
     function ReturnSuccess($code,$message)
     {
