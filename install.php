@@ -74,6 +74,7 @@ class WPBRIDGE_INSTALL
             `meleeattacks`          INT(11)         NOT NULL,
             `mapmarkers`            INT(11)         NOT NULL,
             `respawns`              INT(11)         NOT NULL,
+            `rocketslaunched`       INT(11)         NOT NULL,
             PRIMARY KEY (`id`)
         ) $this->_charset_collate;";
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
