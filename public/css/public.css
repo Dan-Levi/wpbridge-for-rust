@@ -2,6 +2,12 @@
 * Elementor custom HTML
 */
 
+/* Global */
+
+.wpbridge-shortcode {
+    display:block;
+}
+
 /* Menu */
 .nav {
     float:right;
@@ -38,11 +44,21 @@
 }
 
 /* Player stat table */
-.elementor-shortcode  {
-	border:none;
+
+.wpbridge-shortcode table {
+    border-left:1px solid rgba(255,255,255,0.2);
+    border-right:1px solid rgba(255,255,255,0.2);
+    table-layout:fixed;
+    margin:0 !important;
+    padding:0 !important;
+
 }
-.elementor-shortcode tbody td {
+
+.wpbridge-shortcode tbody td {
+    
 	border:1px solid rgba(255,255,255,0.2);
+    border-left: 0;
+    border-right: 0;
 	font-weight:bold;
-	background-color:rgba(255, 255, 255, 0.2);
+	background-color:rgba(55, 55, 55, .4);
 }

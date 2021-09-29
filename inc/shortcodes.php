@@ -15,16 +15,24 @@ class WPBRIDGE_SHORTCODES
     function InitShortCodes()
     {
         foreach (WPBRIDGE_PLAYER_STATS as $playerStat) {
-            add_shortcode("wpbridge_server_info", [$this,"ServerInfoShortCodeFunc"]);
+            add_shortcode("wpbridge_player_info", [$this,"RustServerAPIPlayerInfoShortCodeFunc"]);
+            add_shortcode("wpbridge_server_info", [$this,"RustServerAPIServerInfoShortCodeFunc"]);
             add_shortcode("wpbridge_top_$playerStat", [$this,"TopPlayerShortCodeFunc"]);
         }
     }
 
-    function ServerInfoShortCodeFunc($atts, $content = null, $tag = '')
+    function RustServerAPIPlayerInfoShortCodeFunc($atts, $content = null, $tag = '')
+    {
+        if(!isset($atts['id'])) return '<strong>You have to provide server id:</strong><br> [wpbridge_player_info id="ID_GOES_HERE"]';
+        if(!isset($atts['all'])) return '<span class="wpbridge-shortcode rust-server-api-player-count" data-id="'.$atts['id'].'"></span>';
+        return '<span class="wpbridge-shortcode rust-server-api-player-list" data-id="'.$atts['id'].'"></span>';
+    }
+
+    function RustServerAPIServerInfoShortCodeFunc($atts, $content = null, $tag = '')
     {
         if(!isset($atts['id']) || $atts['id'] == "") return '<strong>You have to provide server id:</strong><br> [wpbridge_server_info id="ID_GOES_HERE"]';
         $id = $atts['id'];
-        return '<strong><div id="header-server-status" data-id="'.$id.'">Status: # Last restart: # days, # hrs ago.</div></strong>';
+        return '<strong><div id="header-rust-server-api-server-status" data-id="'.$id.'">Status: # Last restart: # days, # hrs ago.</div></strong>';
     }
     
     function TopPlayerShortCodeFunc($atts, $content = null, $tag = '')
@@ -37,7 +45,7 @@ class WPBRIDGE_SHORTCODES
         if(!$topPlayers || count($topPlayers) == 0) return "No data";
         
         $markup = "
-        <div>
+        <span class='wpbridge-shortcode'>
             <table>
                 <tbody>";
                 
@@ -52,7 +60,7 @@ class WPBRIDGE_SHORTCODES
             $markup .= "
                 </tbody>
             </table>
-        </div>
+        </span>
         ";
 
         return $markup;
