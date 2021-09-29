@@ -38,12 +38,11 @@ class WPBRIDGE_SHORTCODES
         
         $markup = "
         <div>
-            <h3>Top " . $num . " " . ucfirst($stat) . "</h3>
             <table>
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Count</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>";
