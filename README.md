@@ -5,6 +5,8 @@
 
 WPBridge integrates your Wordpress site with a Rust server to show player statistics and server information.
 
+![Wordpress template using Elementor and WPBridge](https://i.imgur.com/026hN54.png)
+
 ## Current features
 
 + Communication with Rust server via WP REST API.
@@ -90,8 +92,3 @@ The shortcode returns a table with X number of players that have the highest sta
 
 **Example:** `[wpbridge_top_kills num="5"]` will return a table with the 5 players that has the highest number of kills.
 
----
-
-WPBridge in use:
-
-![Wordpress template using Elementor and WPBridge](https://i.imgur.com/026hN54.png)
