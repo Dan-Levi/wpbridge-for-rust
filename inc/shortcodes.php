@@ -24,7 +24,7 @@ class WPBRIDGE_SHORTCODES
     {
         if(!isset($atts['id']) || $atts['id'] == "") return '<strong>You have to provide server id:</strong><br> [wpbridge_server_info id="ID_GOES_HERE"]';
         $id = $atts['id'];
-        return '<div id="header-server-status" data-id="'.$id.'">Status: # Last restart: # days, # hrs ago.</div>';
+        return '<strong><div id="header-server-status" data-id="'.$id.'">Status: # Last restart: # days, # hrs ago.</div></strong>';
     }
     
     function TopPlayerShortCodeFunc($atts, $content = null, $tag = '')
@@ -33,23 +33,36 @@ class WPBRIDGE_SHORTCODES
         $num = 1;
         if(isset($atts['num']) && (int)$atts['num'] > 0) $num = $atts['num'];
         
-        $topPlayers = $this->_wpdb->get_results("SELECT `displayname`,`" . esc_sql($stat) . "` FROM `" . WPBRIDGE_PLAYER_STATS_TABLE . "` ORDER BY '" . esc_sql($stat) . "' DESC LIMIT " . esc_sql($num) . ";");
+        $topPlayers = $this->_wpdb->get_results("SELECT `displayname`,`" . esc_sql($stat) . "` FROM `" . WPBRIDGE_PLAYER_STATS_TABLE . "` ORDER BY " . esc_sql($stat) . " DESC LIMIT " . esc_sql($num) . ";");
         if(!$topPlayers || count($topPlayers) == 0) return "No data";
-        $markup = '
-        <div class="wpbridge_top_widget">
-            <h2>Top ' . $num . ' ' . ucfirst($stat) . '</h2>
-            <table class="aligncenter">
-                <tr>
-                    <th>DisplayName</th>
-                    <th>Count</th>
-                </tr>
-                <tr>
-        ';
+        
+        $markup = "
+        <div>
+            <h3>Top " . $num . " " . ucfirst($stat) . "</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>";
+                
         foreach ($topPlayers as $player) {
-            $markup .= "<td>$player->displayname</td>";
-            $markup .= "<td>".$player->$stat."</td>";
+            $markup .= "
+                    <tr>
+                        <td>". $player->displayname ."</td>
+                        <td>". $player->$stat ."</td>
+                    </tr>";
         }
-        return $markup .= '</tr></table></div>';
+
+            $markup .= "
+                </tbody>
+            </table>
+        </div>
+        ";
+
+        return $markup;
     }
     
     static function instance()
