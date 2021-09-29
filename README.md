@@ -29,12 +29,12 @@ WPBridge integrates your Wordpress site with a Rust server to show player statis
 
 ---
 
-`[wpbridge_server_info id="YOUR_SERVER_ID"]`<br>
-`YOUR_SERVER_ID` The server id that is generated after you have added your server to api.rust-servers.info
+#`[wpbridge_server_info id="YOUR_SERVER_ID"]`<br>
+`YOUR_SERVER_ID` The server id that is generated after you have added your server to [api.rust-servers.info](api.rust-servers.info)
 
 The shortcode returns a string that is formatted like this: `Status: Online. Last restart: X days, Y hrs ago.`
 
-**Example:** `[wpbridge_server_info id="1"]` will return short status data for [Amsterdam 3](https://api.rust-servers.info/status/1)
+**Example:** `[wpbridge_server_info id="1"]` will return short status data for Rust Server: [Amsterdam 3](https://api.rust-servers.info/status/1)
 
 ---
 
