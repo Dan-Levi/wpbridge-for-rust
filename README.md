@@ -26,6 +26,9 @@ WPBridge integrates your Wordpress site with a Rust server to show player statis
 **The upside about this** is that WPBridge doesn't care about the database technology, and shouldn't either.<br>As long as the REST API Endpoint responds correctly **the data that is sent could basically be stored in any kind of database and format.**<br>
 
 ## Available shortcodes
+
+---
+
 `[wpbridge_server_info id="YOUR_SERVER_ID"]`<br>
 `YOUR_SERVER_ID` The server id that is generated after you have added your server to api.rust-servers.info
 
@@ -71,3 +74,5 @@ Available stats:
 The shortcode returns a table with X number of players that have the highest stat that is requested
 
 **Example:** `[wpbridge_top_kills num="5"]` will return a table with the 5 players that has the highest number of kills
+
+---
