@@ -15,11 +15,19 @@ class WPBRIDGE_SHORTCODES
     function InitShortCodes()
     {
         foreach (WPBRIDGE_PLAYER_STATS as $playerStat) {
-            add_shortcode("wpbridge_top_$playerStat", [$this,"TopPlayer"]);
+            add_shortcode("wpbridge_server_info", [$this,"ServerInfoShortCodeFunc"]);
+            add_shortcode("wpbridge_top_$playerStat", [$this,"TopPlayerShortCodeFunc"]);
         }
     }
+
+    function ServerInfoShortCodeFunc($atts, $content = null, $tag = '')
+    {
+        if(!isset($atts['id']) || $atts['id'] == "") return '<strong>You have to provide server id:</strong><br> [wpbridge_server_info id="ID_GOES_HERE"]';
+        $id = $atts['id'];
+        return '<div id="header-server-status" data-id="'.$id.'">Status: # Last restart: # days, # hrs ago.</div>';
+    }
     
-    function TopPlayer($atts, $content = null, $tag = '')
+    function TopPlayerShortCodeFunc($atts, $content = null, $tag = '')
     {
         $stat = str_replace("wpbridge_top_","",$tag);
         $num = 1;
