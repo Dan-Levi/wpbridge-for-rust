@@ -1,0 +1,38 @@
+/**
+* Elementor custom HTML
+*/
+
+/* Menu */
+.nav {
+    float:right;
+}
+.nav-item {
+	cursor:pointer;
+    display:inline-block;
+    margin:5px;
+    opacity: 0.7;
+}
+
+.nav-item > span {
+	color: #a1a1a1;
+	font-weight:bold;
+    display:block;
+    text-align:center;
+}
+.nav-item > img {
+	transition: 0.4s;
+    display:block;
+    width:64px;
+    height:64px;
+    border:3px solid brown !important;
+    border-radius:50% !important;
+    padding:2px;
+}
+.nav-item:hover{
+    opacity:1;
+}
+.nav-item:hover > img {
+    -ms-transform: rotate(20deg) !important; /* IE 9 */
+	-webkit-transform: rotate(20deg) !important; /* Safari prior 9.0 */
+	transform: rotate(360deg) !important; /* Standard syntax */
+}

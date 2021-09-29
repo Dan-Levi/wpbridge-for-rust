@@ -12,6 +12,13 @@ class WPBRIDGE_PUBLIC
 
     function LoadStyles()
     {
+        wp_enqueue_script(
+            'wpbridge-public-script',
+            WPBRIDGE_URL . 'public/js/public.js',
+            array('jquery'),
+            rand(),
+            true
+        );
         wp_enqueue_style(
             'wpbridge-public-style',
             WPBRIDGE_URL . 'public/css/public.css',
