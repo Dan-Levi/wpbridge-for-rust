@@ -7,17 +7,30 @@ WPBridge integrates your Wordpress site with a Rust server to show player statis
 
 ## Current features
 
-+ Communication with Rust server via WP REST API
-+ shortcodes
-+ api.rust-servers.info integration
++ Communication with Rust server via WP REST API.
++ shortcodes.
++ api.rust-servers.info integration.
+
+## How to install
+
++ Press the green Code button above and Download ZIP.
++ Log in to your Wordpress administrator dashboard.
++ Hover the `Plugins` menu item in the sidebar and click on `Add New`.
++ Click `Upload Plugin` then `Choose file` and choose the ZIP archive that you previously downloaded.
++ Click `Install now` and the `Activate` the plugin once it is installed.
+
+## How to configure
+
++ Click the `WPBridge for Rust` menu item in the sidebar.
++ Click `Generate` to generate your unique secret and then click `Save Settings`.
 
 ## Coming soon
 
-+ More shortcodes
++ More shortcodes.
 
 ## FAQ
 + **Does this plugin have any plugin dependencies?**
-  + No
+  + No.
 + **Why not just communicate directly with database?**
   
   + Some hosts accepts external scripts to query database directly, and some hosts don't.<br>
@@ -31,18 +44,18 @@ WPBridge integrates your Wordpress site with a Rust server to show player statis
 
     [wpbridge_server_info id="YOUR_SERVER_ID"]
 
-`YOUR_SERVER_ID` The server id that is generated after you have added your server to [api.rust-servers.info](api.rust-servers.info)
+`YOUR_SERVER_ID` The server id that is generated after you have added your server to [api.rust-servers.info](api.rust-servers.info).
 
 The shortcode returns a string that is formatted like this:<br>`Status: Online. Last restart: X days, Y hrs ago.`
 
-**Example:** `[wpbridge_server_info id="1"]` will return short status data for Rust Server: [Amsterdam 3](https://api.rust-servers.info/status/1)
+**Example:** `[wpbridge_server_info id="1"]` will return short status data for Rust Server: [Amsterdam 3](https://api.rust-servers.info/status/1).
 
 ---
 
     [wpbridge_top_REPLACEWITHSTAT num="NUMBEROFPLAYERS"]
 
-`REPLACEWITHSTAT` The stat that you want to show<br>
-`NUMBEROFPLAYERS` The number of players returned
+`REPLACEWITHSTAT` The stat that you want to show.<br>
+`NUMBEROFPLAYERS` The number of players returned.
 
 Available stats:
 + joins            
@@ -73,8 +86,8 @@ Available stats:
 + researcheditems  
 
 
-The shortcode returns a table with X number of players that have the highest stat that is requested
+The shortcode returns a table with X number of players that have the highest stat that is requested.
 
-**Example:** `[wpbridge_top_kills num="5"]` will return a table with the 5 players that has the highest number of kills
+**Example:** `[wpbridge_top_kills num="5"]` will return a table with the 5 players that has the highest number of kills.
 
 ---
