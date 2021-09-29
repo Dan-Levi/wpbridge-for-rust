@@ -9,8 +9,15 @@
         let data = await FetchServerInfo(serverId);
         if(data)
         {
-            headerServerStatusElem
-            .text('Status: ' + data.status + '. ' + 'Last restart: ' + data.uptime + ' ago.');
+            if(data.status == "Offline")
+            {
+                headerServerStatusElem
+                .text('Status: ' + data.status + '.');
+            } else
+            {
+                headerServerStatusElem
+                .text('Status: ' + data.status + '. ' + 'Last restart: ' + data.uptime + ' ago.');
+            }
         } else{
             headerServerStatusElem
             .text('Server info unavailable right now.');
