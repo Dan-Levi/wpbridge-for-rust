@@ -36,3 +36,13 @@
 	-webkit-transform: rotate(20deg) !important; /* Safari prior 9.0 */
 	transform: rotate(360deg) !important; /* Standard syntax */
 }
+
+/* Player stat table */
+.elementor-shortcode  {
+	border:none;
+}
+.elementor-shortcode tbody td {
+	border:1px solid rgba(255,255,255,0.2);
+	font-weight:bold;
+	background-color:rgba(255, 255, 255, 0.2);
+}
