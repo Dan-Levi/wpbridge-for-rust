@@ -39,12 +39,6 @@ class WPBRIDGE_SHORTCODES
         $markup = "
         <div>
             <table>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th></th>
-                    </tr>
-                </thead>
                 <tbody>";
                 
         foreach ($topPlayers as $player) {
