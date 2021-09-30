@@ -28,6 +28,7 @@ class WPBRIDGE_REST_API
     function UpdateSettings($serverInfo)
     {
 
+        if(!isset($serverInfo["Ip"])) return $this->ReturnError(401,"IP not set");
         if(!isset($serverInfo["Port"])) return $this->ReturnError(401,"server.port not set");
         if(!isset($serverInfo["Level"])) return $this->ReturnError(401,"server.level not set");
         if(!isset($serverInfo["Identity"])) return $this->ReturnError(401,"server.identity not set");
@@ -37,9 +38,11 @@ class WPBRIDGE_REST_API
         if(!isset($serverInfo["HostName"])) return $this->ReturnError(401,"server.hostname not set");
         if(!isset($serverInfo["Description"])) return $this->ReturnError(401,"server.description not set");
         if(!isset($serverInfo["PlayerCount"])) return $this->ReturnError(401,"PlayerCount not set");
+        $serverIp = str_replace("\n", "", $serverInfo["Ip"]);
 
         global $wpdb;
         $sql = "UPDATE `".WPBRIDGE_SETTINGS_TABLE."` SET 
+                `ip`                = '%s',
                 `port`              = '%d',
                 `level`             = '%s',
                 `identity`          = '%s',
@@ -53,6 +56,7 @@ class WPBRIDGE_REST_API
         $wpdb->query(
             $wpdb->prepare(
                 $sql,
+                esc_sql($serverIp),
                 esc_sql($serverInfo["Port"]),
                 esc_sql($serverInfo["Level"]),
                 esc_sql($serverInfo["Identity"]),
