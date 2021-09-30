@@ -55,14 +55,15 @@ WPBridge integrates your Wordpress site with a Rust server to show player statis
 
 
 The shortcode returns either a table with player names and play time, or a string with the number of active players.<br>
-If there are no active players it returns a string formatted like this: `No Players online at the moment`.
+If there are no active players it returns a string formatted like this: `No Players online at the moment`.<br>
+If the argument `all="true"` is passed and there are no players no output will be generated.
 
-**Example:** `[wpbridge_player_info id="YOUR_SERVER_ID"]`
+**Example:** `[wpbridge_player_info id="YOUR_SERVER_ID"]` - single string output
 
 ![Generated output of [wpbridge_player_info id="YOUR_SERVER_ID"]](https://i.imgur.com/hYXrpOu.png)
 
 
-**Example:** `[wpbridge_player_info id="YOUR_SERVER_ID" all="true"]`
+**Example:** `[wpbridge_player_info id="YOUR_SERVER_ID" all="true"]` - table output
 
 ![Generated output of [wpbridge_player_info id="YOUR_SERVER_ID"]](https://i.imgur.com/CZlqkHk.png)
 
