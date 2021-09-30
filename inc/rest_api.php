@@ -131,7 +131,7 @@ class WPBRIDGE_REST_API
         }
 
         //TODO: active players and updated needs to be updated
-        return $this->ReturnSuccess(200, "Player stats stored.");
+        return $this->ReturnSuccess(200, "Player and server stats stored.");
     }
 
     function Secret_Callback($req)
