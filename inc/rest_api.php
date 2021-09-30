@@ -25,14 +25,43 @@ class WPBRIDGE_REST_API
          });
     }
 
-    function UpdateSettings($numActivePlayers)
+    function UpdateSettings($serverInfo)
     {
+
+        if(!isset($serverInfo["Port"])) return $this->ReturnError(401,"server.port not set");
+        if(!isset($serverInfo["Level"])) return $this->ReturnError(401,"server.level not set");
+        if(!isset($serverInfo["Identity"])) return $this->ReturnError(401,"server.identity not set");
+        if(!isset($serverInfo["Seed"])) return $this->ReturnError(401,"server.seed not set");
+        if(!isset($serverInfo["WorldSize"])) return $this->ReturnError(401,"server.worldsize not set");
+        if(!isset($serverInfo["MaxPlayers"])) return $this->ReturnError(401,"server.maxplayers not set");
+        if(!isset($serverInfo["HostName"])) return $this->ReturnError(401,"server.hostname not set");
+        if(!isset($serverInfo["Description"])) return $this->ReturnError(401,"server.description not set");
+        if(!isset($serverInfo["PlayerCount"])) return $this->ReturnError(401,"PlayerCount not set");
+
         global $wpdb;
-        $sql = "UPDATE `".WPBRIDGE_SETTINGS_TABLE."` SET `numactiveplayers` = '%d', `updated` = NOW();";
+        $sql = "UPDATE `".WPBRIDGE_SETTINGS_TABLE."` SET 
+                `port`              = '%d',
+                `level`             = '%s',
+                `identity`          = '%s',
+                `seed`              = '%d',
+                `worldsize`         = '%d',
+                `maxplayers`        = '%d',
+                `hostname`          = '%s',
+                `description`       = '%s',
+                `numactiveplayers`  = '%d',
+                `updated` = NOW();";
         $wpdb->query(
             $wpdb->prepare(
                 $sql,
-                $numActivePlayers
+                esc_sql($serverInfo["Port"]),
+                esc_sql($serverInfo["Level"]),
+                esc_sql($serverInfo["Identity"]),
+                esc_sql($serverInfo["Seed"]),
+                esc_sql($serverInfo["WorldSize"]),
+                esc_sql($serverInfo["MaxPlayers"]),
+                esc_sql($serverInfo["HostName"]),
+                esc_sql($serverInfo["Description"]),
+                esc_sql($serverInfo["PlayerCount"]),
             )
         );
     }
@@ -92,9 +121,9 @@ class WPBRIDGE_REST_API
     {
         if(!isset($req["Secret"])) return $this->ReturnError(401,"Secret not set");
         if(!isset($req["PlayersData"])) return $this->ReturnError(401,"PlayersData not set");
-        if(!isset($req["PlayerCount"])) return $this->ReturnError(401,"PlayerCount not set");
+        if(!isset($req["ServerInfo"]) || !is_array($req["ServerInfo"])) return $this->ReturnError(401,"ServerInfo not set");
         
-        $this->UpdateSettings($req["PlayerCount"]);
+        $this->UpdateSettings($req["ServerInfo"]);
         
         if(is_array($req["PlayersData"]) && count($req["PlayersData"]) > 0)
         {
