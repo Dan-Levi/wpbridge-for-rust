@@ -52,6 +52,7 @@ WPBridge integrates your Wordpress site with a Rust server to show player statis
 `REPLACEWITHSERVERSTAT` The server stat that you want to show.<br>
 
 Available server stats:
++ ip
 + port
 + level
 + identity
@@ -64,7 +65,7 @@ Available server stats:
 
 The shortcode returns the respective server variable requested.
 
-**Example 1:** `[wpbridge_server_worldsize]` will return the current worldsize set on your server.<br>
+**Example 1:** `[wpbridge_server_ip]` will return the current external ip for your server.<br>
 **Example 2:** `[wpbridge_server_identity]` will return the current identity set on your server.<br>
 **Example 2:** `[wpbridge_server_description]` will return the current description set on your server.
 
