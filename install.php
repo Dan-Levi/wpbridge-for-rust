@@ -35,6 +35,7 @@ class WPBRIDGE_INSTALL
 
         $sql = "CREATE TABLE IF NOT EXISTS `".WPBRIDGE_SETTINGS_TABLE."` (
             id                  INT(11)         NOT NULL AUTO_INCREMENT,
+            ip                  VARCHAR(255)    DEFAULT '',
             port                INT(11)         NOT NULL,
             level               VARCHAR(255)    DEFAULT '',
             identity            VARCHAR(255)    DEFAULT '',
