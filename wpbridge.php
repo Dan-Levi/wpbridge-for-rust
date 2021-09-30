@@ -4,7 +4,7 @@
  * Plugin URI: https://wpbridge.danlevi.no
  * Author: Dan-Levi Tømta
  * Author URI: https://www.danlevi.no
- * Version: 0.0.5
+ * Version: 0.0.6
  * Text Domain: wpbridge
  * Description: Integrates your Wordpress site with a Rust server to show player statistics and server information.
  * Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T7FNEG2D2ELC8
