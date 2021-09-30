@@ -14,10 +14,15 @@ class WPBRIDGE_SHORTCODES
 
     function InitShortCodes()
     {
-        foreach (WPBRIDGE_PLAYER_STATS as $playerStat) {
-            add_shortcode("wpbridge_player_info", [$this,"RustServerAPIPlayerInfoShortCodeFunc"]);
-            add_shortcode("wpbridge_server_info", [$this,"RustServerAPIServerInfoShortCodeFunc"]);
+        add_shortcode("wpbridge_player_info", [$this,"RustServerAPIPlayerInfoShortCodeFunc"]);
+        add_shortcode("wpbridge_server_info", [$this,"RustServerAPIServerInfoShortCodeFunc"]);
+        foreach (WPBRIDGE_PLAYER_STATS as $playerStat)
+        {
             add_shortcode("wpbridge_top_$playerStat", [$this,"TopPlayerShortCodeFunc"]);
+        }
+        foreach (WPBRIDGE_SERVER_STATS as $serverStat)
+        {
+            add_shortcode("wpbridge_server_$serverStat", [$this,"ServerStatShortCodeFunc"]);
         }
     }
 
@@ -33,6 +38,17 @@ class WPBRIDGE_SHORTCODES
         if(!isset($atts['id']) || $atts['id'] == "") return '<strong>You have to provide server id:</strong><br> [wpbridge_server_info id="ID_GOES_HERE"]';
         $id = $atts['id'];
         return '<strong><div id="header-rust-server-api-server-status" data-id="'.$id.'">Status: # Last restart: # days, # hrs ago.</div></strong>';
+    }
+
+    function ServerStatShortCodeFunc($atts, $content = null, $tag = '')
+    {
+        $stat = str_replace("wpbridge_server_","",$tag);
+        if(!in_array($stat,WPBRIDGE_SERVER_STATS)) return "[ServerStatShortCodeFunc] -> The shortcode produced an error WPBRIDGE_SERVER_STAT_MISSING_EXCEPTION";
+
+        $result = $this->_wpdb->get_results("SELECT `" . esc_sql($stat) . "` FROM `" . WPBRIDGE_SETTINGS_TABLE . "` WHERE id = 1;");
+        if(!is_array($result)) return "[ServerStatShortCodeFunc] -> The shortcode produced an error NOT_ARRAY_EXCEPTION";
+        if(!isset($result[0]->$stat)) "[ServerStatShortCodeFunc] -> The shortcode produced an error WPBRIDGE_DATABASE_COLUMN_MISSING_EXCEPTION";
+        return $result[0]->$stat;
     }
     
     function TopPlayerShortCodeFunc($atts, $content = null, $tag = '')
