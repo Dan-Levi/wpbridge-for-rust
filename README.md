@@ -5,7 +5,7 @@
 
 ## Synopsis
 
-WPBridge integrates your Wordpress site with a Rust server to show player statistics and server information.
+WPBridge integrates Wordpress sites with Rust servers to show player statistics and server information.
 
 ![Wordpress template using Elementor and WPBridge](https://i.imgur.com/026hN54.png)
 
