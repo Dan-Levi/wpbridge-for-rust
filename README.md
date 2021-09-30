@@ -144,3 +144,13 @@ The shortcode returns a table with X number of players that have the highest sta
 **Example:** `[wpbridge_top_kills num="5"]` will return a table with the 5 players that has the highest number of kills.
 
 ![Generated output of [wpbridge_top_kills num="5"]](https://i.imgur.com/koy1s6U.png)
+
+---
+
+    [wpbridge_steam_connect]
+
+The shortcode returns steam protocol uri with your server ip and port for use with hyperlink.
+
+**Example:** `[wpbridge_steam_connect]` outputs `steam://connect/YOUR_SERVER_IP:YOUR_SERVER_PORT`
+
+Usage: `<a href="[wpbridge_steam_connect]">Connect to server now</a>`
