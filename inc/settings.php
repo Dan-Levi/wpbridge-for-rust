@@ -7,6 +7,7 @@ class WPBRIDGE_SETTINGS
     public function __construct()
     {
         $this->Add_Actions();
+        $this->Add_Filters();
     }
     
     function Add_Actions()
@@ -14,6 +15,16 @@ class WPBRIDGE_SETTINGS
         add_action('admin_menu', [$this,"SetupSettingsMenu"]);
         add_action('admin_enqueue_scripts', [$this,"InitAdminJavaScript"]);
         add_action('admin_init', [$this,"SetupSecretSection"]);
+    }
+
+    function Add_Filters()
+    {
+        add_filter( 'kses_allowed_protocols' , [$this,'AllowSteamProtocol'] );
+    }
+
+    function AllowSteamProtocol($protocols){
+        $protocols[] = 'steam';
+        return $protocols;
     }
 
     function InitAdminJavaScript()
