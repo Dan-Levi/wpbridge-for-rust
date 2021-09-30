@@ -7,6 +7,9 @@
  * Version: 0.0.5
  * Text Domain: wpbridge
  * Description: Integrates your Wordpress site with a Rust server to show player statistics and server information.
+ * Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T7FNEG2D2ELC8
+ * License: GPLv2 or later
+ * License URI: http://www.gnu.org/licenses/gpl-2.0.html
 */
 
 if( !defined('ABSPATH') ) : exit(); endif;
