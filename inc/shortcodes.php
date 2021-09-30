@@ -16,6 +16,8 @@ class WPBRIDGE_SHORTCODES
     {
         add_shortcode("wpbridge_player_info", [$this,"RustServerAPIPlayerInfoShortCodeFunc"]);
         add_shortcode("wpbridge_server_info", [$this,"RustServerAPIServerInfoShortCodeFunc"]);
+        add_shortcode("wpbridge_steam_connect", [$this,"SteamConnectShortCodeFunc"]);
+
         foreach (WPBRIDGE_PLAYER_STATS as $playerStat)
         {
             add_shortcode("wpbridge_top_$playerStat", [$this,"TopPlayerShortCodeFunc"]);
@@ -38,6 +40,14 @@ class WPBRIDGE_SHORTCODES
         if(!isset($atts['id']) || $atts['id'] == "") return '<strong>You have to provide server id:</strong><br> [wpbridge_server_info id="ID_GOES_HERE"]';
         $id = $atts['id'];
         return '<strong><div id="header-rust-server-api-server-status" data-id="'.$id.'">Status: # Last restart: # days, # hrs ago.</div></strong>';
+    }
+
+    function SteamConnectShortCodeFunc()
+    {
+        $result = $this->_wpdb->get_results("SELECT `ip`,`port` FROM `" . WPBRIDGE_SETTINGS_TABLE . "` WHERE id = 1;");
+        if(!is_array($result)) return "[SteamConnectShortCodeFunc] -> The shortcode produced an error NOT_ARRAY_EXCEPTION";
+        if(!isset($result[0]->ip) || !isset($result[0]->port)) "[SteamConnectShortCodeFunc] -> The shortcode produced an error WPBRIDGE_DATABASE_COLUMN_MISSING_EXCEPTION";
+        return "steam://connect/".$result[0]->ip.":".$result[0]->port;
     }
 
     function ServerStatShortCodeFunc($atts, $content = null, $tag = '')
