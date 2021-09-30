@@ -23,13 +23,13 @@
 	opacity:1;
 }
 
-.nav-item > span {
+.nav-item span {
 	color: #a1a1a1;
 	font-weight:bold;
     display:block;
     text-align:center;
 }
-.nav-item > img {
+.nav-item img {
 	transition: 0.4s;
     display:block;
     width:64px;
