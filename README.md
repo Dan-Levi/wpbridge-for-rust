@@ -1,6 +1,10 @@
 
 # WPBridge for Wordpress
 
+## Home
+
+Visit the WPBridge website [https://wpbridge.danlevi.no/](here).
+
 ## Synopsis
 
 WPBridge integrates your Wordpress site with a Rust server to show player statistics and server information.
