@@ -1,9 +1,7 @@
 
 # WPBridge for Wordpress
 
-## Home
-
-Visit WPBridge official website [here](https://wpbridge.danlevi.no/).
+[Visit WPBridge official website](https://wpbridge.danlevi.no/).
 
 ## Synopsis
 
