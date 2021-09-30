@@ -19,6 +19,10 @@
     opacity: 0.7;
 }
 
+.nav-item.active {
+	opacity:1;
+}
+
 .nav-item > span {
 	color: #a1a1a1;
 	font-weight:bold;
