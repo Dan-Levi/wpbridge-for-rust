@@ -13,8 +13,9 @@ WPBridge integrates your Wordpress site with a Rust server to show player statis
 
 ## Current features
 
-+ Communication with Rust server via WP REST API.
-+ shortcodes.
++ Communication with a Rust server that has the [WPBridge for Rust plugin](https://github.com/Dan-Levi/wpbridge-rust) installed and configured.
++ Communicates via Wordpress REST API and saves the data to database.
++ Implements several shortcodes.
 + api.rust-servers.info integration.
 
 ## How to install
