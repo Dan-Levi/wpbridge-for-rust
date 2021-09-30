@@ -34,8 +34,16 @@ class WPBRIDGE_INSTALL
         }
 
         $sql = "CREATE TABLE IF NOT EXISTS `".WPBRIDGE_SETTINGS_TABLE."` (
-            id                  INT(11)     NOT NULL AUTO_INCREMENT,
-            numactiveplayers    INT(11)     NOT NULL,
+            id                  INT(11)         NOT NULL AUTO_INCREMENT,
+            port                INT(11)         NOT NULL,
+            level               VARCHAR(255)    DEFAULT '',
+            identity            VARCHAR(255)    DEFAULT '',
+            seed                INT(11)         NOT NULL,
+            worldsize           INT(11)         NOT NULL,
+            maxplayers          INT(11)         NOT NULL,
+            hostname            VARCHAR(255)    DEFAULT '',
+            description         VARCHAR(255)    DEFAULT '',
+            numactiveplayers    INT(11)         NOT NULL,
             updated             datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
             PRIMARY KEY (id)
         ) $this->_charset_collate;";
