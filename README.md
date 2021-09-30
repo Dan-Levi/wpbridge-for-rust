@@ -13,10 +13,10 @@ WPBridge integrates your Wordpress site with a Rust server to show player statis
 
 ## Current features
 
-+ Communication with a Rust server that has the [WPBridge for Rust plugin](https://github.com/Dan-Levi/wpbridge-rust) installed and configured.
-+ Communicates via Wordpress REST API and saves the data to database.
-+ Implements several shortcodes.
-+ api.rust-servers.info integration.
++ Communication with a [Rust server](https://wiki.facepunch.com/rust/Creating-a-server) [with uMod/Oxide](https://umod.org/games/rust) that has the [WPBridge for Rust plugin](https://github.com/Dan-Levi/wpbridge-rust) installed and configured.
++ Communicates via [Wordpress REST API](https://developer.wordpress.org/rest-api/) and saves the data to database.
++ Implements several [shortcodes](https://codex.wordpress.org/Shortcode).
++ [rust-servers.info's API](https://api.rust-servers.info/) integration.
 
 ## How to install
 
