@@ -9,33 +9,29 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
  
-WPBridge integrates your Wordpress site with a Rust server to show player statistics and server information.
+WPBridge integrates Wordpress sites with Rust servers to show player statistics and server information.
 
 == Description ==
 
-WPBridge is a WordPress plugin that enables you to show nearly real time server and player statistics on your site. This is perfect for you who want an overview over player statistics such as number of kills, headshots, suicides and many more.
+WPBridge is a WordPress plugin that enables you to show nearly real time server and player statistics on your site. This is perfect for you who want an overview over player statistics such as; number of kills, headshots, suicides, server ip, server port and much more.
 
 == Features ==
 
 * Several shortcodes.
-* Works great with Elementor but not dependent on it.
+* Works great with Elementor.
 
 == Usage ==
 
-Firstly, install and activate WPBridge (this plugin).
-
-Once activated, head over to the plugin settings page in the administrator menu.
-
-Generate your unique secret and click Save Config.
-
-Head over to my github repository to find detailed information about how to use the shortcodes [here](https://github.com/Dan-Levi/wpbridge-wordpress).
+* Firstly, install and activate WPBridge (this plugin).
+* Once activated, head over to the plugin settings page in the administrator menu.
+* Generate your unique secret and click Save Config.
+* Head over to my github repository to find detailed information about how to use the shortcodes [here](https://github.com/Dan-Levi/wpbridge-wordpress).
 
 == Security ==
 
-Never post or share your unique secret as this is totally unique and used to receive information from your Rust server.
+Never post or share your unique secret as this is unique to your server and used by the system to authorize information transactions from your Rust server.
 
 == Feedback ==
 
-* I'm open to your [suggestions and feedback](mailto:danbannan@gmail.com) - Thanks for using WPBridge!
+* I'm open to your [suggestions and feedback](mailto:danbannan@gmail.com) - Thanks for your interest in WPBridge!
 * Tag me [@DanLeviH](https://twitter.com/DanLeviH) on Twitter #wpbridge
-
