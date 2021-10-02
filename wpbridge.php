@@ -2,11 +2,11 @@
 /**
  * Plugin Name: WPBridge for Rust
  * Plugin URI: https://wpbridge.danlevi.no
+ * Description: Integrates your Wordpress site with a Rust server to show player statistics and server information.
+ * Version: 0.0.6
  * Author: Dan-Levi Tømta
  * Author URI: https://www.danlevi.no
- * Version: 0.0.6
- * Text Domain: wpbridge
- * Description: Integrates your Wordpress site with a Rust server to show player statistics and server information.
+ * Text Domain: wpbridge-for-rust
  * Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T7FNEG2D2ELC8
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,27 +14,27 @@
 
 if( !defined('ABSPATH') ) : exit(); endif;
 
-class WPBRIDGE
+class WPB_F_R_WPBRIDGE
 {
     public $plugin_version = '0.0.5';
     private static $_instance = null;
 
     public function __construct()
     {
-        $this->DefineConstants();
-        $this->CheckVersion();
-        $this->InitInstall();
-        $this->InitUnInstall();
-        $this->InitSettings();
-        $this->InitRestApi();
-        $this->InitShortCodes();
-        $this->InitPublic();
+        $this->WPB_F_R_DefineConstants();
+        $this->WPB_F_R_CheckVersion();
+        $this->WPB_F_R_InitInstall();
+        $this->WPB_F_R_InitUnInstall();
+        $this->WPB_F_R_InitSettings();
+        $this->WPB_F_R_InitRestApi();
+        $this->WPB_F_R_InitShortCodes();
+        $this->WPB_F_R_InitPublic();
     }
 
     /**
      * Init public
      */
-    public function InitPublic()
+    public function WPB_F_R_InitPublic()
     {
         require_once WPBRIDGE_PATH . 'public/public.php';
     }
@@ -42,7 +42,7 @@ class WPBRIDGE
     /**
      * Init Shortcodes
      */
-    public function InitShortCodes()
+    public function WPB_F_R_InitShortCodes()
     {
         require_once WPBRIDGE_PATH . 'inc/shortcodes.php';
     }
@@ -50,7 +50,7 @@ class WPBRIDGE
     /**
      * Check version
      */
-    public function CheckVersion()
+    public function WPB_F_R_CheckVersion()
     {
         $plugin_version = get_option('WPBRIDGE_PLUGIN_VERSION',0);
         if(WPBRIDGE_PLUGIN_VERSION > $plugin_version)
@@ -62,7 +62,7 @@ class WPBRIDGE
     /**
      * Settings
      */
-    public function InitSettings()
+    public function WPB_F_R_InitSettings()
     {
         require_once WPBRIDGE_PATH . 'inc/settings.php';
     }
@@ -70,7 +70,7 @@ class WPBRIDGE
     /**
      * Rest API
      */
-    public function InitRestApi()
+    public function WPB_F_R_InitRestApi()
     {
         require_once WPBRIDGE_PATH . 'inc/rest_api.php';
     }
@@ -78,7 +78,7 @@ class WPBRIDGE
     /**
      * Install
      */
-    public function InitInstall()
+    public function WPB_F_R_InitInstall()
     {
         if(is_admin()) {
             require_once WPBRIDGE_PATH . '/install.php';
@@ -88,7 +88,7 @@ class WPBRIDGE
     /**
      * Uninstall
      */
-    public function InitUnInstall()
+    public function WPB_F_R_InitUnInstall()
     {
         if(is_admin()) {
             require_once WPBRIDGE_PATH . '/uninstall.php';
@@ -98,7 +98,7 @@ class WPBRIDGE
     /**
      * Constants
      */
-    public function DefineConstants()
+    public function WPB_F_R_DefineConstants()
     {
         define( 'WPBRIDGE_PATH', trailingslashit( plugin_dir_path(__FILE__) ) );
         define( 'WPBRIDGE_URL', trailingslashit( plugins_url('/', __FILE__) ) );
@@ -108,14 +108,14 @@ class WPBRIDGE
     /**
      * Singleton
      */
-    static function instance()
+    static function WPB_F_R_instance()
     {
         if(self::$_instance == null)
         {
-            self::$_instance = new WPBRIDGE();
+            self::$_instance = new WPB_F_R_WPBRIDGE();
         }
         return self::$_instance;
     }
 }
 
-WPBRIDGE::instance();
+WPB_F_R_WPBRIDGE::WPB_F_R_instance();

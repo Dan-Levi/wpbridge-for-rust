@@ -1,15 +1,16 @@
 <?php
 if ( !defined( 'WP_UNINSTALL_PLUGIN' ) ) return;
-class WPBRIDGE_UNINSTALL
+class WPB_F_R_WPBRIDGE_UNINSTALL
 {
     private static $_instance = null;
 
     public function __construct()
     {
-        $this->DropDatabaseTables();
+        $this->WPB_F_R_DropDatabaseTables();
+        $this->WPB_F_R_DeleteOptions();
     }
 
-    function DropDatabaseTables()
+    function WPB_F_R_DropDatabaseTables()
     {
         global $wpdb;
         $sql = "DROP TABLE IF EXISTS `".$wpdb->prefix . 'wpbridge_settings'."`;";
@@ -18,19 +19,19 @@ class WPBRIDGE_UNINSTALL
         $wpdb->query($sql);
     }
 
-    function DeleteOptions()
+    function WPB_F_R_DeleteOptions()
     {
-        delete_option('wpbridge_secret');
+        delete_option('wpbridge_secret_field');
     }
 
-    static function instance()
+    static function WPB_F_R_instance()
     {
         if(self::$_instance == null)
         {
-            self::$_instance = new WPBRIDGE_UNINSTALL();
+            self::$_instance = new WPB_F_R_WPBRIDGE_UNINSTALL();
         }
         return self::$_instance;
     }
 }
 
-WPBRIDGE_UNINSTALL::instance();
+WPB_F_R_WPBRIDGE_UNINSTALL::WPB_F_R_instance();

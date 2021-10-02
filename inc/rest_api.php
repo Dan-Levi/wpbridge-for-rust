@@ -1,43 +1,43 @@
 <?php
 
-class WPBRIDGE_REST_API
+class WPB_F_R_WPBRIDGE_REST_API
 {
     private static $_instance = null;
 
     public function __construct()
     {
-        $this->InitRoutes();
+        $this->WPB_F_R_InitRoutes();
     }
 
-    function InitRoutes()
+    function WPB_F_R_InitRoutes()
     {
         add_action( 'rest_api_init', function () {
             register_rest_route( 'wpbridge', '/secret', array(
                 'methods' => 'POST',
-                'callback' => [$this,"Secret_Callback"],
+                'callback' => [$this,"WPB_F_R_Secret_Callback"],
                 'permission_callback' => '__return_true'
             ));
             register_rest_route( 'wpbridge', '/player-stats', array(
                 'methods' => 'POST',
-                'callback' => [$this,"Player_Stats_POST_Callback"],
+                'callback' => [$this,"WPB_F_R_Player_Stats_POST_Callback"],
                 'permission_callback' => '__return_true'
             ));
          });
     }
 
-    function UpdateSettings($serverInfo)
+    function WPB_F_R_UpdateSettings($serverInfo)
     {
 
-        if(!isset($serverInfo["Ip"])) return $this->ReturnError(401,"IP not set");
-        if(!isset($serverInfo["Port"])) return $this->ReturnError(401,"server.port not set");
-        if(!isset($serverInfo["Level"])) return $this->ReturnError(401,"server.level not set");
-        if(!isset($serverInfo["Identity"])) return $this->ReturnError(401,"server.identity not set");
-        if(!isset($serverInfo["Seed"])) return $this->ReturnError(401,"server.seed not set");
-        if(!isset($serverInfo["WorldSize"])) return $this->ReturnError(401,"server.worldsize not set");
-        if(!isset($serverInfo["MaxPlayers"])) return $this->ReturnError(401,"server.maxplayers not set");
-        if(!isset($serverInfo["HostName"])) return $this->ReturnError(401,"server.hostname not set");
-        if(!isset($serverInfo["Description"])) return $this->ReturnError(401,"server.description not set");
-        if(!isset($serverInfo["PlayerCount"])) return $this->ReturnError(401,"PlayerCount not set");
+        if(!isset($serverInfo["Ip"])) return $this->WPB_F_R_ReturnError(401,"IP not set");
+        if(!isset($serverInfo["Port"])) return $this->WPB_F_R_ReturnError(401,"server.port not set");
+        if(!isset($serverInfo["Level"])) return $this->WPB_F_R_ReturnError(401,"server.level not set");
+        if(!isset($serverInfo["Identity"])) return $this->WPB_F_R_ReturnError(401,"server.identity not set");
+        if(!isset($serverInfo["Seed"])) return $this->WPB_F_R_ReturnError(401,"server.seed not set");
+        if(!isset($serverInfo["WorldSize"])) return $this->WPB_F_R_ReturnError(401,"server.worldsize not set");
+        if(!isset($serverInfo["MaxPlayers"])) return $this->WPB_F_R_ReturnError(401,"server.maxplayers not set");
+        if(!isset($serverInfo["HostName"])) return $this->WPB_F_R_ReturnError(401,"server.hostname not set");
+        if(!isset($serverInfo["Description"])) return $this->WPB_F_R_ReturnError(401,"server.description not set");
+        if(!isset($serverInfo["PlayerCount"])) return $this->WPB_F_R_ReturnError(401,"PlayerCount not set");
         $serverIp = str_replace("\n", "", $serverInfo["Ip"]);
 
         global $wpdb;
@@ -70,12 +70,12 @@ class WPBRIDGE_REST_API
         );
     }
 
-    function UpdatePlayer($player)
+    function WPB_F_R_UpdatePlayer($player)
     {
         global $wpdb;
-        $sql = "SELECT * FROM `".WPBRIDGE_PLAYER_STATS_TABLE."` WHERE `steamid` = '%d';";
-        $existingPlayer = $wpdb->get_row($wpdb->prepare($sql,$player["SteamId"]));
-        $sql = "UPDATE `".WPBRIDGE_PLAYER_STATS_TABLE."` SET ";
+        $sql = "SELECT * FROM `". esc_sql(WPBRIDGE_PLAYER_STATS_TABLE) ."` WHERE `steamid` = '%d';";
+        $existingPlayer = $wpdb->get_row($wpdb->prepare($sql, $player["SteamId"] ));
+        $sql = "UPDATE `". esc_sql(WPBRIDGE_PLAYER_STATS_TABLE) ."` SET ";
         foreach (array_keys($player) as $requestValue) {
             if($requestValue == "SteamId") continue;
             $columnName = strtolower($requestValue);
@@ -91,14 +91,14 @@ class WPBRIDGE_REST_API
         $wpdb->query($sql);
     }
 
-    function InsertPlayer($player)
+    function WPB_F_R_InsertPlayer($player)
     {
         global $wpdb;
-        $sqlStart = "INSERT INTO `".WPBRIDGE_PLAYER_STATS_TABLE."`(";
+        $sqlStart = "INSERT INTO `". esc_sql(WPBRIDGE_PLAYER_STATS_TABLE) ."`(";
         $sqlEnd = "";
         foreach (array_keys($player) as $requestValue) {
             $columnName = strtolower($requestValue);
-            $sqlStart .= "`$columnName`,";
+            $sqlStart .= "`" . esc_sql($columnName) . "`,";
             $sqlEnd .= "'" . esc_sql($player[$requestValue]) . "',";
         }
         $sqlStart = chop($sqlStart,',') . ") VALUES (";
@@ -107,54 +107,54 @@ class WPBRIDGE_REST_API
         $wpdb->query($sql);
     }
 
-    function StorePlayerStats($playersData)
+    function WPB_F_R_StorePlayerStats($playersData)
     {
         global $wpdb;
         foreach ($playersData as $player) {
-            $sql = "SELECT `steamid` FROM `".WPBRIDGE_PLAYER_STATS_TABLE."` WHERE `steamid` = '%d';";
+            $sql = "SELECT `steamid` FROM `". esc_sql(WPBRIDGE_PLAYER_STATS_TABLE) ."` WHERE `steamid` = '%d';";
             if($wpdb->query($wpdb->prepare($sql,$player["SteamId"])))
             {
-                $this->UpdatePlayer($player);
+                $this->WPB_F_R_UpdatePlayer($player);
             } else {
-                $this->InsertPlayer($player);
+                $this->WPB_F_R_InsertPlayer($player);
             }
         }
     }
 
-    function Player_Stats_POST_Callback($req)
+    function WPB_F_R_Player_Stats_POST_Callback($req)
     {
-        if(!isset($req["Secret"])) return $this->ReturnError(401,"Secret not set");
-        if(!isset($req["PlayersData"])) return $this->ReturnError(401,"PlayersData not set");
-        if(!isset($req["ServerInfo"]) || !is_array($req["ServerInfo"])) return $this->ReturnError(401,"ServerInfo not set");
+        if(!isset($req["Secret"])) return $this->WPB_F_R_ReturnError(401,"Secret not set");
+        if(!isset($req["PlayersData"])) return $this->WPB_F_R_ReturnError(401,"PlayersData not set");
+        if(!isset($req["ServerInfo"]) || !is_array($req["ServerInfo"])) return $this->WPB_F_R_ReturnError(401,"ServerInfo not set");
         
-        $this->UpdateSettings($req["ServerInfo"]);
+        $this->WPB_F_R_UpdateSettings($req["ServerInfo"]);
         
         if(is_array($req["PlayersData"]) && count($req["PlayersData"]) > 0)
         {
-            $this->StorePlayerStats($req["PlayersData"]);
+            $this->WPB_F_R_StorePlayerStats($req["PlayersData"]);
         }
 
         //TODO: active players and updated needs to be updated
-        return $this->ReturnSuccess(200, "Player and server stats stored.");
+        return $this->WPB_F_R_ReturnSuccess(200, "Player and server stats stored.");
     }
 
-    function Secret_Callback($req)
+    function WPB_F_R_Secret_Callback($req)
     {
-        if(!isset($req["Secret"])) return $this->ReturnError(401,"Secret not set");
-        if($req["Secret"] != get_option('wpbridge_secret_field')) return $this->ReturnError(401,"Secret mismatch");
-        return $this->ReturnSuccess(200, "Ready");
+        if(!isset($req["Secret"])) return $this->WPB_F_R_ReturnError(401,"Secret not set");
+        if($req["Secret"] != get_option('wpbridge_secret_field')) return $this->WPB_F_R_ReturnError(401,"Secret mismatch");
+        return $this->WPB_F_R_ReturnSuccess(200, "Ready");
     }
 
-    function ReturnSuccess($code,$message)
+    function WPB_F_R_ReturnSuccess($code,$message)
     {
-        return new WP_Rest_Success_Message(
+        return new WPB_F_R_WP_Rest_Success_Message(
             "success",
             $message,
             array( 'status' => $code)
         );
     }
 
-    function ReturnError($code,$message)
+    function WPB_F_R_ReturnError($code,$message)
     {
         return new WP_Error(
             'error',
@@ -164,17 +164,17 @@ class WPBRIDGE_REST_API
     }
 
 
-    static function instance()
+    static function WPB_F_R_instance()
     {
         if(self::$_instance == null)
         {
-            self::$_instance = new WPBRIDGE_REST_API();
+            self::$_instance = new WPB_F_R_WPBRIDGE_REST_API();
         }
         return self::$_instance;
     }
 }
 #region Helper Classes
-class WP_Rest_Success_Message
+class WPB_F_R_WP_Rest_Success_Message
 {
    public $code,$message,$data;
    public function __construct($_code, $_message,$_data)
@@ -185,4 +185,4 @@ class WP_Rest_Success_Message
    }
 }
 #endregion
-WPBRIDGE_REST_API::instance();
+WPB_F_R_WPBRIDGE_REST_API::WPB_F_R_instance();

@@ -1,16 +1,16 @@
 <?php
 
-class WPBRIDGE_PUBLIC
+class WPB_F_R_WPBRIDGE_PUBLIC
 {
     private static $_instance = null;
 
     public function __construct()
     {
         // wp_loaded
-        add_action('wp_enqueue_scripts', [$this,'LoadStyles']);
+        add_action('wp_enqueue_scripts', [$this,'WPB_F_R_LoadStyles']);
     }
 
-    function LoadStyles()
+    function WPB_F_R_LoadStyles()
     {
         wp_enqueue_script(
             'wpbridge-public-script',
@@ -27,14 +27,14 @@ class WPBRIDGE_PUBLIC
         );
     }
 
-    static function instance()
+    static function WPB_F_R_instance()
     {
         if(self::$_instance == null)
         {
-            self::$_instance = new WPBRIDGE_PUBLIC();
+            self::$_instance = new WPB_F_R_WPBRIDGE_PUBLIC();
         }
         return self::$_instance;
     }
 }
 
-WPBRIDGE_PUBLIC::instance();
+WPB_F_R_WPBRIDGE_PUBLIC::WPB_F_R_instance();

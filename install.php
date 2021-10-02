@@ -1,6 +1,6 @@
 <?php
 
-class WPBRIDGE_INSTALL
+class WPB_F_R_WPBRIDGE_INSTALL
 {
     private $_wpdb;
     private $_charset_collate;
@@ -9,31 +9,31 @@ class WPBRIDGE_INSTALL
 
     public function __construct()
     {
-        $this->InitDatabase();
-        register_activation_hook(WPBRIDGE_PATH . '/wpbridge.php', [$this,'CreateSettingsTable']);
-        register_activation_hook(WPBRIDGE_PATH . '/wpbridge.php', [$this,'PopulateSettingsTable']);
-        register_activation_hook(WPBRIDGE_PATH . '/wpbridge.php', [$this,'CreatePlayersDataTable']);
+        $this->WPB_F_R_InitDatabase();
+        register_activation_hook(WPBRIDGE_PATH . '/wpbridge.php', [$this,'WPB_F_R_CreateSettingsTable']);
+        register_activation_hook(WPBRIDGE_PATH . '/wpbridge.php', [$this,'WPB_F_R_PopulateSettingsTable']);
+        register_activation_hook(WPBRIDGE_PATH . '/wpbridge.php', [$this,'WPB_F_R_CreatePlayersDataTable']);
     }
 
-    function InitDatabase()
+    function WPB_F_R_InitDatabase()
     {
         global $wpdb;
         $this->_wpdb = $wpdb;
         $this->_charset_collate = $wpdb->get_charset_collate();
     }
 
-    function CreateSettingsTable()
+    function WPB_F_R_CreateSettingsTable()
     {
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
         if(defined('WPBRIDGE_NEEDS_UPGRADE'))
         {
-            $this->_wpdb->query("DROP TABLE `".WPBRIDGE_SETTINGS_TABLE."`");
-            $this->_wpdb->query("DROP TABLE `".WPBRIDGE_PLAYER_STATS_TABLE."`");
-            update_option('WPBRIDGE_PLUGIN_VERSION',WPBRIDGE_PLUGIN_VERSION);
+            $this->_wpdb->query("DROP TABLE `".esc_sql(WPBRIDGE_SETTINGS_TABLE)."`");
+            $this->_wpdb->query("DROP TABLE `".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE)."`");
+            update_option('WPBRIDGE_PLUGIN_VERSION',esc_html(WPBRIDGE_PLUGIN_VERSION));
         }
 
-        $sql = "CREATE TABLE IF NOT EXISTS `".WPBRIDGE_SETTINGS_TABLE."` (
+        $sql = "CREATE TABLE IF NOT EXISTS `".esc_sql(WPBRIDGE_SETTINGS_TABLE)."` (
             id                  INT(11)         NOT NULL AUTO_INCREMENT,
             ip                  VARCHAR(255)    DEFAULT '',
             port                INT(11)         NOT NULL,
@@ -51,11 +51,11 @@ class WPBRIDGE_INSTALL
         dbDelta($sql);
     }
 
-    function PopulateSettingsTable()
+    function WPB_F_R_PopulateSettingsTable()
     {
-        $this->_wpdb->query("TRUNCATE TABLE `".WPBRIDGE_SETTINGS_TABLE."`");
+        $this->_wpdb->query("TRUNCATE TABLE `".esc_sql(WPBRIDGE_SETTINGS_TABLE)."`");
         $this->_wpdb->insert( 
-            WPBRIDGE_SETTINGS_TABLE, 
+            esc_sql(WPBRIDGE_SETTINGS_TABLE), 
             array(
                 'numactiveplayers' => 0, 
                 'updated' => current_time( 'mysql' ), 
@@ -63,9 +63,9 @@ class WPBRIDGE_INSTALL
         );
     }
 
-    function CreatePlayersDataTable()
+    function WPB_F_R_CreatePlayersDataTable()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS `".WPBRIDGE_PLAYER_STATS_TABLE."` (
+        $sql = "CREATE TABLE IF NOT EXISTS `".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE)."` (
             `id`                    INT(11)         NOT NULL AUTO_INCREMENT,
             `steamid`               BIGINT(100)     NOT NULL,
             `displayname`           VARCHAR(255)    NOT NULL,
@@ -101,13 +101,13 @@ class WPBRIDGE_INSTALL
         dbDelta($sql);
     }
 
-    static function instance()
+    static function WPB_F_R_instance()
     {
         if(self::$_instance == null)
         {
-            self::$_instance = new WPBRIDGE_INSTALL();
+            self::$_instance = new WPB_F_R_WPBRIDGE_INSTALL();
         }
         return self::$_instance;
     }
 }
-WPBRIDGE_INSTALL::instance();
+WPB_F_R_WPBRIDGE_INSTALL::WPB_F_R_instance();
