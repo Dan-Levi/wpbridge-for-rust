@@ -22,6 +22,7 @@ class WPB_F_R_WPBRIDGE_UNINSTALL
     function WPB_F_R_DeleteOptions()
     {
         delete_option('wpbridge_secret_field');
+        delete_option('WPBRIDGE_PLUGIN_VERSION');
     }
 
     static function WPB_F_R_instance()
