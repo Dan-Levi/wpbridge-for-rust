@@ -28,8 +28,10 @@ class WPB_F_R_WPBRIDGE_INSTALL
 
         if(defined('WPBRIDGE_NEEDS_UPGRADE'))
         {
-            $this->_wpdb->query("DROP TABLE `".esc_sql(WPBRIDGE_SETTINGS_TABLE)."`");
-            $this->_wpdb->query("DROP TABLE `".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE)."`");
+            try {
+                $this->_wpdb->query("DROP TABLE IF EXISTS `".esc_sql(WPBRIDGE_SETTINGS_TABLE)."`");
+                $this->_wpdb->query("DROP TABLE IF EXISTS `".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE)."`");
+            } catch(Exception $e){} //If it's not there, dont do anything
             update_option('WPBRIDGE_PLUGIN_VERSION',esc_html(WPBRIDGE_PLUGIN_VERSION));
         }
 
