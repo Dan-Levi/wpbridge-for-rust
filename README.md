@@ -60,7 +60,8 @@ WPBridge integrates Wordpress sites with Rust servers to show player statistics 
 <br />
 <br />
 
----
+# Server statistics
+
 
     [wpbridge_server_REPLACEWITHSERVERSTAT]
 
@@ -89,7 +90,7 @@ The shortcode returns the respective server variable requested.
 <br />
 <br />
 
----
+# Player count and listing
 
     [wpbridge_player_info id="YOUR_SERVER_ID" all="true"]
 
@@ -114,7 +115,7 @@ If the argument `all="true"` is passed and there are no players no output will b
 <br />
 <br />
 
----
+# Online status and last restart
 
     [wpbridge_server_info id="YOUR_SERVER_ID"]
 
@@ -130,7 +131,7 @@ The shortcode returns a string that is formatted like this:<br>`Status: Online. 
 <br />
 <br />
 
----
+# Player stats
 
     [wpbridge_top_REPLACEWITHSTAT num="NUMBEROFPLAYERS"]
 
@@ -176,7 +177,7 @@ The shortcode returns a table with X number of players that have the highest sta
 <br />
 <br />
 
----
+# Steam uri
 
     [wpbridge_steam_connect]
 
@@ -190,7 +191,7 @@ Usage: `<a href="[wpbridge_steam_connect]">Connect to server now</a>`
 <br />
 <br />
 
----
+# Progress bar with the number of active players
 
     [wpbridge_progress_num_players show_ip_port="true" show_join="true"]
 
