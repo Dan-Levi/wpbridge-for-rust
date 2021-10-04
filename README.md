@@ -32,6 +32,7 @@ WPBridge integrates Wordpress sites with Rust servers to show player statistics 
 ## Coming soon
 
 + More shortcodes.
++ More Wordpress Elementor templates
 
 ## FAQ
 + **Does this plugin have any plugin dependencies?**
@@ -47,7 +48,20 @@ WPBridge integrates Wordpress sites with Rust servers to show player statistics 
 <br />
 <br />
 
-## Available shortcodes
+---
+
+## Elementor templates
+
+<a href="https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_1.json"><img src="https://i.imgur.com/NkkjVX4.png" width="300" /><br />
+Right click -> Save
+</a>
+
+<br />
+<br />
+<br />
+
+
+# Shortcodes
 
 + `wpbridge_server_REPLACEWITHSERVERSTAT` -> Server statistics
 + `wpbridge_player_info` -> Player count and listing
@@ -60,7 +74,9 @@ WPBridge integrates Wordpress sites with Rust servers to show player statistics 
 <br />
 <br />
 
-# Server statistics
+## Server statistics
+---
+
 
 
     [wpbridge_server_REPLACEWITHSERVERSTAT]
