@@ -66,3 +66,23 @@
 	font-weight:bold;
 	background-color:rgba(55, 55, 55, .4);
 }
+
+/* Widgets */
+
+.wpbridge-widget-container {
+    
+}
+
+/* progressbar */
+
+.wpbridge-progressbar > h3 {
+    color:rgba(255, 255, 255, 0.788);
+    margin-bottom:20px;
+    padding:0;
+    text-align: center;
+}
+
+.wpbridge-progressbar .wpbridge-button-wrapper {
+    margin-top:20px;
+    text-align:center;
+}
