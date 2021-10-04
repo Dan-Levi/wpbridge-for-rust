@@ -52,9 +52,7 @@ WPBridge integrates Wordpress sites with Rust servers to show player statistics 
 
 ## Elementor templates
 
-<a href="https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_1.json"><img src="https://i.imgur.com/NkkjVX4.png" width="300" /><br />
-Right click -> Save
-</a>
+[![](https://i.imgur.com/uWVlyXs.jpg) <br />Right click -> Save](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_1.json)
 
 <br />
 <br />
