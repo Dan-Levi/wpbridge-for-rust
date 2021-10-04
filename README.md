@@ -43,7 +43,22 @@ WPBridge integrates Wordpress sites with Rust servers to show player statistics 
 
 **The upside about this** is that WPBridge doesn't care about the database technology, and shouldn't either.<br>As long as the REST API Endpoint responds correctly **the data that is sent could basically be stored in any kind of database and format.**<br>
 
+<br />
+<br />
+<br />
+
 ## Available shortcodes
+
++ `wpbridge_server_REPLACEWITHSERVERSTAT` -> Server statistics
++ `wpbridge_player_info` -> Player count and listing
++ `wpbridge_server_info` -> Online status and last restart
++ `wpbridge_top_REPLACEWITHSTAT` -> Player stats
++ `wpbridge_steam_connect` -> Returns the steam uri to connect to server
++ `wpbridge_progress_num_players` -> returns a progress bar with the number of active players
+
+<br />
+<br />
+<br />
 
 ---
 
@@ -68,6 +83,11 @@ The shortcode returns the respective server variable requested.
 **Example 1:** `[wpbridge_server_ip]` will return the current external ip for your server.<br>
 **Example 2:** `[wpbridge_server_identity]` will return the current identity set on your server.<br>
 **Example 2:** `[wpbridge_server_description]` will return the current description set on your server.
+---
+
+<br />
+<br />
+<br />
 
 ---
 
@@ -90,6 +110,10 @@ If the argument `all="true"` is passed and there are no players no output will b
 
 ![Generated output of [wpbridge_player_info id="YOUR_SERVER_ID"]](https://i.imgur.com/CZlqkHk.png)
 
+<br />
+<br />
+<br />
+
 ---
 
     [wpbridge_server_info id="YOUR_SERVER_ID"]
@@ -102,6 +126,9 @@ The shortcode returns a string that is formatted like this:<br>`Status: Online. 
 
 ![Generated output of [wpbridge_server_info id="YOUR_SERVER_ID"]](https://i.imgur.com/QBaRlvV.png)
 
+<br />
+<br />
+<br />
 
 ---
 
@@ -145,6 +172,10 @@ The shortcode returns a table with X number of players that have the highest sta
 
 ![Generated output of [wpbridge_top_kills num="5"]](https://i.imgur.com/koy1s6U.png)
 
+<br />
+<br />
+<br />
+
 ---
 
     [wpbridge_steam_connect]
@@ -154,3 +185,29 @@ The shortcode returns steam protocol uri with your server ip and port for use wi
 **Example:** `[wpbridge_steam_connect]` outputs `steam://connect/YOUR_SERVER_IP:YOUR_SERVER_PORT`
 
 Usage: `<a href="[wpbridge_steam_connect]">Connect to server now</a>`
+
+<br />
+<br />
+<br />
+
+---
+
+    [wpbridge_progress_num_players show_ip_port="true" show_join="true"]
+
+`show_ip_port="true"` If set to `true` shows ip and port above the progress bar.<br>
+`show_join="true"` If set to `true` shows a connect button.
+
+The shortcode returns a progress bar.
+
+**Example 1:** `[wpbridge_progress_num_players]` Shows only progress bar
+
+![](https://i.imgur.com/xAmkXhV.png)
+
+**Example 2:** `[wpbridge_progress_num_players show_join="true"]` Shows only join button
+
+![](https://i.imgur.com/b2FTesR.png)
+
+**Example 3:** `[wpbridge_progress_num_players show_ip_port="true" show_join="true"]` Shows both options
+
+![](https://i.imgur.com/oFlp1LT.png)
+
