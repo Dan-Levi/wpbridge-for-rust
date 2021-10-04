@@ -18,6 +18,9 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         add_shortcode("wpbridge_server_info", [$this,"WPB_F_R_RustServerAPIServerInfoShortCodeFunc"]);
         add_shortcode("wpbridge_steam_connect", [$this,"WPB_F_R_SteamConnectShortCodeFunc"]);
 
+        //Progress_lines
+        add_shortcode("wpbridge_progress_num_players", [$this, "WPB_F_R_ProgressLineNumPlayers"]);
+
         foreach (WPBRIDGE_PLAYER_STATS as $playerStat)
         {
             add_shortcode(esc_html("wpbridge_top_$playerStat"), [$this,"WPB_F_R_TopPlayerShortCodeFunc"]);
@@ -26,6 +29,54 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         {
             add_shortcode(esc_html("wpbridge_server_$serverStat"), [$this,"WPB_F_R_ServerStatShortCodeFunc"]);
         }
+    }
+
+    function WPB_F_R_ProgressLineNumPlayers($atts, $content = null, $tag = '')
+    {
+        $markup = "";
+        $queryResult = $this->_wpdb->get_results("SELECT `ip`,`port`,`hostname`,`maxplayers`,`numactiveplayers` FROM `" . esc_sql(WPBRIDGE_SETTINGS_TABLE) . "` WHERE id = 1;");
+        if(is_array($queryResult) && count($queryResult) == 1)
+        {
+            $data = $queryResult[0];
+            $percentage = (int)($data->numactiveplayers * 100 / $data->maxplayers);
+            $markup = '
+            <div class="wpbridge-widget-container wpbridge-progressbar">';
+
+            if(isset($atts["show_ip_port"]) && $atts["show_ip_port"] == "true")
+            {
+                $markup .= '<span class="elementor-title">' . esc_html($data->ip) . ':' . $data->port . '</span>';
+            }
+
+            $markup .='
+                
+                <div class="elementor-progress-wrapper" role="progressbar" aria-valuemin="0" aria-valuemax="' . esc_html($data->maxplayers) . '" aria-valuenow="' . esc_html($data->numactiveplayers) . '" aria-valuetext="' . __("Active players", "wpbridge-for-rust") . '">
+                    <div class="elementor-progress-bar" data-max="' . esc_html($data->maxplayers) . '" style="width: ' . esc_html($percentage) . '%;">
+                        <span class="elementor-progress-text">' . __("Active players", "wpbridge-for-rust") . ' (' . $data->numactiveplayers . '/' . $data->maxplayers . ')' . '</span>
+                    </div>
+                </div>';
+
+                
+            if(isset($atts["show_join"]) && $atts["show_join"] == "true")
+            {
+            $markup .= '
+                <div class="wpbridge-button-wrapper">
+                    <a href="http://steam://connect/' . $data->ip . ':' . $data->port . '" class="elementor-button-link elementor-button elementor-size-sm" role="button">
+                        <span class="elementor-button-content-wrapper">
+                            <span class="elementor-button-text">Join now</span>
+                        </span>
+                    </a>
+                </div>
+            ';
+            }
+
+
+            $markup .= '
+            </div>
+            ';
+
+
+        }
+        return $markup;
     }
 
     function WPB_F_R_RustServerAPIPlayerInfoShortCodeFunc($atts, $content = null, $tag = '')
