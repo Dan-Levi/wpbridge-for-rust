@@ -16,13 +16,16 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
     {
         add_shortcode("wpbridge_player_info", [$this,"WPB_F_R_RustServerAPIPlayerInfoShortCodeFunc"]);
         add_shortcode("wpbridge_server_info", [$this,"WPB_F_R_RustServerAPIServerInfoShortCodeFunc"]);
+        
         add_shortcode("wpbridge_steam_connect", [$this,"WPB_F_R_SteamConnectShortCodeFunc"]);
 
         //Progress_lines
         add_shortcode("wpbridge_progress_num_players", [$this, "WPB_F_R_ProgressLineNumPlayers"]);
 
+        
         foreach (WPBRIDGE_PLAYER_STATS as $playerStat)
         {
+            add_shortcode(esc_html("wpbridge_total_$playerStat"), [$this,"WPB_F_R_TotalStatShortCodeFunc"]);
             add_shortcode(esc_html("wpbridge_top_$playerStat"), [$this,"WPB_F_R_TopPlayerShortCodeFunc"]);
         }
         foreach (WPBRIDGE_SERVER_STATS as $serverStat)
@@ -111,6 +114,18 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         if(!isset($result[0]->$stat)) "[ServerStatShortCodeFunc] -> The shortcode produced an error WPBRIDGE_DATABASE_COLUMN_MISSING_EXCEPTION";
         return $result[0]->$stat;
     }
+
+    function WPB_F_R_TotalStatShortCodeFunc($atts, $content = null, $tag = '')
+    {
+        $stat = str_replace("wpbridge_total_","",$tag);
+        $queryResult = $this->_wpdb->get_results(" SELECT SUM(`" . esc_sql($stat) . "`) AS `" . esc_sql($stat) . "` FROM `" . esc_sql(WPBRIDGE_PLAYER_STATS_TABLE) . "` ;");
+        if(is_array($queryResult) && count($queryResult) === 1)
+        {
+            return $queryResult[0]->$stat;
+        }
+        
+        return "#";
+    }
     
     function WPB_F_R_TopPlayerShortCodeFunc($atts, $content = null, $tag = '')
     {
@@ -120,6 +135,16 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         
         $topPlayers = $this->_wpdb->get_results("SELECT `displayname`,`" . esc_sql($stat) . "` FROM `" . WPBRIDGE_PLAYER_STATS_TABLE . "` ORDER BY " . esc_sql($stat) . " DESC LIMIT " . esc_sql($num) . ";");
         if(!$topPlayers || count($topPlayers) == 0) return "No data";
+
+        if($num == 1)
+        {
+            $player = $topPlayers[0];
+            if(isset($atts["name"]) && $atts["name"] == "false")
+            {
+                return $player->$stat;
+            }
+            return $player->displayname . " has " . $player->$stat . " " . $stat;
+        }
         
         $markup = "
         <span class='wpbridge-shortcode'>
