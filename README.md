@@ -5,9 +5,12 @@
 
 ## Synopsis
 
-WPBridge integrates Wordpress sites with Rust servers to show player statistics and server information.
+WPBridge integrates [WordPress](https://wordpress.org/) sites with [Rust](https://rust.facepunch.com/) servers to show player statistics and server information with [shortcodes](https://codex.wordpress.org/Shortcode).
 
-![Wordpress template using Elementor and WPBridge](https://i.imgur.com/026hN54.png)
+# Shortcodes
+![example of shortcode usage](https://i.imgur.com/5239skX.png)
+# becomes
+![example of shortcode usage](https://i.imgur.com/ddABEZf.png)
 
 ## Current features
 
@@ -55,6 +58,8 @@ WPBridge integrates Wordpress sites with Rust servers to show player statistics 
 [How to use Elementor Templates](https://elementor.com/help/template-library/)
 
 [![](https://i.imgur.com/uWVlyXs.jpg) <br />Right click -> Save](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_1.json)
+
+[![](https://i.imgur.com/MNdY2pg.jpg) <br />Right click -> Save](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_2.json)
 
 <br />
 <br />
@@ -149,10 +154,11 @@ The shortcode returns a string that is formatted like this:<br>`Status: Online. 
 
 # Player stats
 
-    [wpbridge_top_REPLACEWITHSTAT num="NUMBEROFPLAYERS"]
+    [wpbridge_top_REPLACEWITHSTAT num="NUMBEROFPLAYERS" name="false"]
 
 `REPLACEWITHSTAT` The stat that you want to show.<br>
-`num="NUMBEROFPLAYERS"` The number of players returned.
+`num="NUMBEROFPLAYERS"` The number of players returned.<br />
+`name="false"` **ONLY USED WHEN `num="1"`**
 
 Available stats:
 + joins            
@@ -183,11 +189,21 @@ Available stats:
 + researcheditems  
 
 
-The shortcode returns a table with X number of players that have the highest stat that is requested.
+The shortcode returns a table with X number of players that have the highest stat that is requested.<br />
+If num is provided like this: `num="1"` will return a single string formatted like this: `PLAYERNAME has NUM STAT`<br />
+if num is provided like this: `num="1"` and `name="false"` will return only the stat.
 
-**Example:** `[wpbridge_top_kills num="5"]` will return a table with the 5 players that has the highest number of kills.
+**Example 1:** `[wpbridge_top_kills num="5"]` will return a table with the 5 players that has the highest number of kills.
 
 ![Generated output of [wpbridge_top_kills num="5"]](https://i.imgur.com/koy1s6U.png)
+
+**Example 2:** `[wpbridge_top_kills num="1"]` will return a single string.
+
+![Generated output of [wpbridge_top_kills num="1"]](https://i.imgur.com/3bbdqE8.png)
+
+**Example 2:** `[wpbridge_top_kills num="1"]` will return **ONLY** the number.
+
+![Generated output of [wpbridge_top_kills num="1" name="false"]](https://i.imgur.com/QZUm5kU.png)
 
 <br />
 <br />
