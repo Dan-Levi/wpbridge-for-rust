@@ -4,12 +4,14 @@
  * Plugin URI: https://wpbridge.danlevi.no
  * Description: Integrates your Wordpress site with a Rust server to show player statistics and server information.
  * Version: 1.0.0
+ * Requires at least: 5.8
+ * Requires PHP: 7.4
  * Author: Dan-Levi Tømta
  * Author URI: https://www.danlevi.no
- * Text Domain: wpbridge-for-rust
- * Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T7FNEG2D2ELC8
  * License: GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: wpbridge-for-rust
+ * Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T7FNEG2D2ELC8
 */
 
 if( !defined('ABSPATH') ) : exit(); endif;
