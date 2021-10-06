@@ -3,7 +3,7 @@
  * Plugin Name: WPBridge for Rust
  * Plugin URI: https://wpbridge.danlevi.no
  * Description: Integrates your Wordpress site with a Rust server to show player statistics and server information.
- * Version: 0.0.8
+ * Version: 1.0.0
  * Author: Dan-Levi Tømta
  * Author URI: https://www.danlevi.no
  * Text Domain: wpbridge-for-rust
@@ -16,7 +16,7 @@ if( !defined('ABSPATH') ) : exit(); endif;
 
 class WPB_F_R_WPBRIDGE
 {
-    public $plugin_version = '0.0.8';
+    public $plugin_version = '1.0.0';
     private static $_instance = null;
 
     public function __construct()
