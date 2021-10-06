@@ -219,7 +219,7 @@ The shortcode returns steam protocol uri with your server ip and port for use wi
 
 **Example:** `[wpbridge_steam_connect]` outputs `steam://connect/YOUR_SERVER_IP:YOUR_SERVER_PORT`
 
-Usage: `<a href="[wpbridge_steam_connect]">Connect to server now</a>`
+Usage to generate a valid html anchor tag AKA link: `<a href="[wpbridge_steam_connect]">Connect to server now</a>`
 
 <br />
 <br />
