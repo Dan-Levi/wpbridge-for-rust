@@ -7,10 +7,14 @@
 
 WPBridge for Rust integrates [WordPress](https://wordpress.org/) sites with [Rust](https://rust.facepunch.com/) servers to show player statistics and server information with [shortcodes](https://codex.wordpress.org/Shortcode).
 
-# Shortcodes
+---
+
+# WordPress [shortcodes]
 ![example of shortcode usage](https://i.imgur.com/5239skX.png)
 # becomes
 ![example of shortcode usage](https://i.imgur.com/ddABEZf.png)
+
+---
 
 ## Current features
 
