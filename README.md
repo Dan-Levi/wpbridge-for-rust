@@ -1,11 +1,11 @@
 
-# WPBridge for Wordpress
+# WPBridge for Rust
 
 [Visit WPBridge official website](https://wpbridge.danlevi.no/).
 
 ## Synopsis
 
-WPBridge integrates [WordPress](https://wordpress.org/) sites with [Rust](https://rust.facepunch.com/) servers to show player statistics and server information with [shortcodes](https://codex.wordpress.org/Shortcode).
+WPBridge for Rust integrates [WordPress](https://wordpress.org/) sites with [Rust](https://rust.facepunch.com/) servers to show player statistics and server information with [shortcodes](https://codex.wordpress.org/Shortcode).
 
 # Shortcodes
 ![example of shortcode usage](https://i.imgur.com/5239skX.png)
@@ -14,7 +14,7 @@ WPBridge integrates [WordPress](https://wordpress.org/) sites with [Rust](https:
 
 ## Current features
 
-+ Communication with a [Rust server](https://wiki.facepunch.com/rust/Creating-a-server) [with uMod/Oxide](https://umod.org/games/rust) that has the [WPBridge for Rust plugin](https://github.com/Dan-Levi/wpbridge-rust) installed and configured.
++ Communication with a [Rust server](https://wiki.facepunch.com/rust/Creating-a-server) [with uMod/Oxide](https://umod.org/games/rust) that has the [WPBridge for Wordpress plugin](https://github.com/Dan-Levi/wpbridge-rust) installed and configured.
 + Communicates via [Wordpress REST API](https://developer.wordpress.org/rest-api/) and saves the data to database.
 + Implements several [shortcodes](https://codex.wordpress.org/Shortcode).
 + [rust-servers.info's API](https://api.rust-servers.info/) integration.
@@ -22,7 +22,7 @@ WPBridge integrates [WordPress](https://wordpress.org/) sites with [Rust](https:
 ## How to install
 
 + Press the green Code button above and Download ZIP.
-+ Log in to your Wordpress administrator dashboard.
++ Log in to your WordPress administrator dashboard.
 + Hover the `Plugins` menu item in the sidebar and click on `Add New`.
 + Click `Upload Plugin` then `Choose file` and choose the ZIP archive that you previously downloaded.
 + Click `Install now` and the `Activate` the plugin once it is installed.
