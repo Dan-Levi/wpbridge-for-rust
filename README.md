@@ -160,7 +160,7 @@ The shortcode returns a string that is formatted like this:<br>`Status: Online. 
 
 `REPLACEWITHSTAT` The stat that you want to show.<br>
 `num="NUMBEROFPLAYERS"` The number of players returned.<br />
-`name="false"` **ONLY USED WHEN `num="1"`**
+`name="false"` **ONLY USED WHEN `num="1"`**  <small>Usage described in detail further down.</small>
 
 Available stats:
 + joins            
