@@ -52,18 +52,16 @@ WPBridge for Rust integrates [WordPress](https://wordpress.org/) sites with [Rus
 **The upside about this** is that WPBridge doesn't care about the database technology, and shouldn't either.<br>As long as the REST API Endpoint responds correctly **the data that is sent could basically be stored in any kind of database and format.**<br>
 
 <br />
-<br />
-<br />
 
 ## Elementor templates
-
 [How to use Elementor Templates](https://elementor.com/help/template-library/)
-
-[![](https://i.imgur.com/uWVlyXs.jpg) <br />Right click -> Save](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_1.json)
-
-[![](https://i.imgur.com/MNdY2pg.jpg) <br />Right click -> Save](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_2.json)
-
 <br />
+<br />
+`Right Click -> Save to download`
+Mystic Gray     | Sunrise Sweets
+:---------------|--------------:
+[![](https://i.imgur.com/uWVlyXs.jpg)](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_1.json) | [![](https://i.imgur.com/MNdY2pg.jpg)](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_2.json)
+
 <br />
 <br />
 
