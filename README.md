@@ -51,8 +51,6 @@ WPBridge for Rust integrates [WordPress](https://wordpress.org/) sites with [Rus
 <br />
 <br />
 
----
-
 ## Elementor templates
 
 [How to use Elementor Templates](https://elementor.com/help/template-library/)
@@ -65,8 +63,9 @@ WPBridge for Rust integrates [WordPress](https://wordpress.org/) sites with [Rus
 <br />
 <br />
 
+## Shortcodes
 
-# Shortcodes
+[How to use shortcodes](https://codex.wordpress.org/Shortcode)
 
 + `wpbridge_server_REPLACEWITHSERVERSTAT` -> Server statistics
 + `wpbridge_player_info` -> Player count and listing
