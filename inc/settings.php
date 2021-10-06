@@ -1,5 +1,6 @@
 <?php
 
+
 class WPB_F_R_WPBRIDGE_SETTINGS
 {
     private static $_instance = null;
@@ -15,6 +16,7 @@ class WPB_F_R_WPBRIDGE_SETTINGS
         add_action('admin_menu', [$this,"WPB_F_R_SetupSettingsMenu"]);
         add_action('admin_enqueue_scripts', [$this,"WPB_F_R_InitAdminJavaScript"]);
         add_action('admin_init', [$this,"WPB_F_R_SetupSecretSection"]);
+        add_action('admin_init', [$this,'WPB_F_R_Url_HandlerPurgeDatabase']);
     }
 
     function WPB_F_R_Add_Filters()
@@ -27,6 +29,24 @@ class WPB_F_R_WPBRIDGE_SETTINGS
         return $protocols;
     }
 
+    // Array ( [page] => wpbridge-settings-page [action] => purge_player_database )
+
+    function WPB_F_R_Url_HandlerPurgeDatabase()
+    {
+        if(is_admin())
+        {
+            if(isset($_GET['page']) && isset($_GET['action']))
+            {
+                if($_GET['page'] === "wpbridge-settings-page" && $_GET['action'] === "purge_player_database")
+                {
+                    global $wpdb;
+                    $wpdb->query("TRUNCATE `" . esc_sql(WPBRIDGE_PLAYER_STATS_TABLE) . "`;");
+                    header("location: /wp-admin/admin.php?page=wpbridge-settings-page&result=purge_player_database");
+                }
+            }
+        }
+     }
+
     function WPB_F_R_InitAdminJavaScript()
     {
         wp_enqueue_script(
@@ -37,6 +57,8 @@ class WPB_F_R_WPBRIDGE_SETTINGS
             true
         );
     }
+
+    
 
     function WPB_F_R_SetupSecretSection()
     {
@@ -68,12 +90,14 @@ class WPB_F_R_WPBRIDGE_SETTINGS
     {
         $secret = get_option('wpbridge_secret_field','');
     ?>
-        <input type="text" id="wpbridge_secret_field" class="regular-text" name="wpbridge_secret_field" value="<?php echo esc_html($secret); ?>" placeholder="<?php echo __('Please type or generate your unique secret', 'wpbridge'); ?>" />
+        <input type="text" id="wpbridge_secret_field" class="regular-text" name="wpbridge_secret_field" value="<?php echo esc_html($secret); ?>" placeholder="<?php echo __('Please type or generate your unique secret', 'wpbridge-for-rust'); ?>" />
         <button id="wpbridge_secret_generate_button" class="button button-primary"><?php echo __('Generate', 'wpbridge-for-rust'); ?></button>
         <br>
         <label for="wpbridgerust_settings_input_secret_field"><?php echo __('Paste this unique secret into WPBridge config file <code>[your_rust_server]/oxide/config/WPBridge.json</code>', 'wpbridge-for-rust'); ?></label>
     <?php
     }
+
+    
 
     function WPB_F_R_SetupSettingsMenu()
     {
@@ -92,16 +116,22 @@ class WPB_F_R_WPBRIDGE_SETTINGS
     function WPB_F_R_wpbridge_settings_template_callback()
     {
         ?>
-        <div class="wrap">
-            <h3><?php echo esc_html( get_admin_page_title() ) . ' ' . __(' - Settings', 'wpbridge-for-rust'); ?></h3>
-            <hr />
-            <h1>Secret</h1>
-            <form action="options.php" method="post">
+        <form action="options.php" method="post">
+            <div class="wrap">
+                <h3><?php echo esc_html( get_admin_page_title() ) . ' ' . __(' - Settings', 'wpbridge-for-rust'); ?></h3>
+                <hr />
+
+                <h1><?php echo __('Secret','wpbridge-for-rust'); ?></h1>
                 <?php settings_fields('wpbridge-settings-page'); ?>
                 <?php do_settings_sections('wpbridge-settings-page');?>
+
+                <h1><?php echo __('Player Database','wpbridge-for-rust'); ?></h1>
+                <br>
+                <button id="wpbridge_database_purge_players_button" class="button button-primary button-warning"><?php echo __('Purge', 'wpbridge-for-rust'); ?></button>
+                <hr />
                 <?php submit_button( __('Save Settings', 'wpbridge-for-rust') ); ?>
-            </form>
-        </div>
+            </div>
+        </form>
         <?php
     }
 
