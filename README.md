@@ -57,7 +57,7 @@ WPBridge for Rust integrates [WordPress](https://wordpress.org/) sites with [Rus
 [How to use Elementor Templates](https://elementor.com/help/template-library/)
 <br />
 <br />
-`Right Click -> Save to download`
+`Right Click -> Save to download template`
 Mystic Gray     | Sunrise Sweets
 :---------------|--------------:
 [![Mystic Gray](https://i.imgur.com/uWVlyXs.jpg)](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_1.json) | [![Sunrise Sweets](https://i.imgur.com/MNdY2pg.jpg)](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_2.json)
