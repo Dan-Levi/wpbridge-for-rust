@@ -106,6 +106,7 @@ The shortcode returns the respective server variable requested.
 **Example 1:** `[wpbridge_server_ip]` will return the current external ip for your server.<br>
 **Example 2:** `[wpbridge_server_identity]` will return the current identity set on your server.<br>
 **Example 2:** `[wpbridge_server_description]` will return the current description set on your server.
+
 ---
 
 <br />
