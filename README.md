@@ -14,8 +14,8 @@ WPBridge for Rust integrates [WordPress](https://wordpress.org/) sites with [Rus
 
 ## Current features
 
-+ Communication with a [Rust server](https://wiki.facepunch.com/rust/Creating-a-server) [with uMod/Oxide](https://umod.org/games/rust) that has the [WPBridge for Wordpress plugin](https://github.com/Dan-Levi/wpbridge-rust) installed and configured.
-+ Communicates via [Wordpress REST API](https://developer.wordpress.org/rest-api/) and saves the data to database.
++ Communication with a [Rust server](https://wiki.facepunch.com/rust/Creating-a-server) [with uMod/Oxide](https://umod.org/games/rust) that has the [WPBridge for WordPress plugin](https://github.com/Dan-Levi/wpbridge-rust) installed and configured.
++ Communicates via [WordPress REST API](https://developer.wordpress.org/rest-api/) and saves the data to database.
 + Implements several [shortcodes](https://codex.wordpress.org/Shortcode).
 + [rust-servers.info's API](https://api.rust-servers.info/) integration.
 
@@ -35,7 +35,7 @@ WPBridge for Rust integrates [WordPress](https://wordpress.org/) sites with [Rus
 ## Coming soon
 
 + More shortcodes.
-+ More Wordpress Elementor templates
++ More WordPress Elementor templates
 
 ## FAQ
 + **Does this plugin have any plugin dependencies?**
