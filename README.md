@@ -58,9 +58,9 @@ WPBridge for Rust integrates [WordPress](https://wordpress.org/) sites with [Rus
 <br />
 <br />
 `Right Click -> Save to download`
-Mystic Grey     | Sunrise Sweets
+Mystic Gray     | Sunrise Sweets
 :---------------|--------------:
-[![Mystic Grey](https://i.imgur.com/uWVlyXs.jpg)](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_1.json) | [![Sunrise Sweets](https://i.imgur.com/MNdY2pg.jpg)](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_2.json)
+[![Mystic Gray](https://i.imgur.com/uWVlyXs.jpg)](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_1.json) | [![Sunrise Sweets](https://i.imgur.com/MNdY2pg.jpg)](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_2.json)
 
 <br />
 <br />
