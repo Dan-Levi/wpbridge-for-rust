@@ -3,7 +3,7 @@ Contributors: danlevi
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T7FNEG2D2ELC8
 Tags: rust, gaming, rest, rest-api, shortcode, shortcodes
 Requires at least: 5.8
-Tested up to: 5.8.1
+Tested up to: 5.8
 Requires PHP: 7.4
 Stable tag: 1.0.0
 License: GPLv2 or later
@@ -17,9 +17,9 @@ Thank you for your interest in my plugin. WPBridge adds a collection of ready to
 
 The shortcodes enables you to always show updated server and player statistics without any need of programming skills. This is perfect if you want to add the extra touch to user experience of your server frontend.
 
-== Features ==
-
 Share an overview of player statistics such as number of kills, headshots, suicides, wounded, server ip and port, active players online, join server now link, and much much more to the Rust community.
+
+== Features ==
 
 * Communicates securely with Rust servers.
 * Adds several functional shortcodes.
