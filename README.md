@@ -25,7 +25,7 @@ WPBridge for Rust integrates [WordPress](https://wordpress.org/) sites with [Rus
 
 ## How to install
 
-1. Log in and navigate to _Plugins &rarr; Add New.
+1. Log in to your WordPress backend and navigate to _Plugins &rarr; Add New.
 2. Type "`WPBridge`" into the Search and hit Enter.
 3. Locate the `WPBridge` plugin in the list of search results and click **Install Now**.
 4. Once installed, click the **Activate** link.
