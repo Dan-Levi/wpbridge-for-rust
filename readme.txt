@@ -9,7 +9,7 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
  
-Integrate Rust servers with WordPress and add the extra touch to user experience of your server frontend by adding updated server and player statistics.
+Integrate Rust servers with WordPress and bump user experience of your server by adding updated server and player statistics.
 
 == Description ==
 
