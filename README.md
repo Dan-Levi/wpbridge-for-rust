@@ -25,9 +25,9 @@ WPBridge for Rust integrates [WordPress](https://wordpress.org/) sites with [Rus
 
 ## How to install
 
-1. Log in to your WordPress backend and navigate to _Plugins &rarr; Add New.
+1. Log in to your WordPress backend and navigate to _Plugins &rarr; Add New.<br>![Illustration showing how to add new plugin](https://i.imgur.com/UoyAhFN.png)
 2. Type "`WPBridge`" into the Search and hit Enter.
-3. Locate the `WPBridge` plugin in the list of search results and click **Install Now**.
+3. Locate the `WPBridge` plugin in the list of search results and click **Install Now**.<br>![Illustration of how WPBridge looks like in the WordPress plugins directory](https://i.imgur.com/xrf6GoL.png)
 4. Once installed, click the **Activate** link.
 
 It can also be installed manually.
@@ -39,8 +39,9 @@ It can also be installed manually.
 
 ## How to configure
 
-1. Locate and click the `WPBridge for Rust` menu item in the sidebar menu.
-2. Click `Generate` to generate your unique secret and then click `Save Settings`.
+1. Locate and click the `WPBridge for Rust` menu item in the sidebar menu.<br>![Illustration showing where to locate WPBridge for Rust settings page](https://i.imgur.com/QO6VoLk.png)
+2. Click `Generate` to generate your unique secret and then click `Save Settings`.<br>![Illustration showing where to generate unique secret](https://i.imgur.com/zV7Nkew.png)
+
 
 ## Coming soon
 
