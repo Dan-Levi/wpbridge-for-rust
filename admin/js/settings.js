@@ -35,8 +35,14 @@ if(getParams.has('page') && getParams.has('result'))
     {
         if (result == 'purge_player_database')
         {
+            const wpbridge_database_purge_players_result_message_elem = $("#wpbridge_database_purge_players_result_message_elem");
+            wpbridge_database_purge_players_result_message_elem.fadeIn(200, function() {
+                setTimeout(function() {
+                    wpbridge_database_purge_players_result_message_elem.fadeOut(200);
+                },3000);
+            });
             window.history.pushState("data","Title",'/wp-admin/admin.php?page=wpbridge-settings-page');
-            alert("Player database purged");
+            
         } 
     }
 }

@@ -128,6 +128,7 @@ class WPB_F_R_WPBRIDGE_SETTINGS
                 <h1><?php echo __('Player Database','wpbridge-for-rust'); ?></h1>
                 <br>
                 <button id="wpbridge_database_purge_players_button" class="button button-primary button-warning"><?php echo __('Purge', 'wpbridge-for-rust'); ?></button>
+                <h3 id="wpbridge_database_purge_players_result_message_elem" style="display:none;">Player data successfully purged.</h3>
                 <hr />
                 <?php submit_button( __('Save Settings', 'wpbridge-for-rust') ); ?>
             </div>

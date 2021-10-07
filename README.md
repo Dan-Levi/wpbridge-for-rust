@@ -47,6 +47,7 @@ It can also be installed manually.
 
 + More shortcodes.
 + More WordPress Elementor templates
++ 
 
 ## FAQ
 + **Does this plugin have any plugin dependencies?**
