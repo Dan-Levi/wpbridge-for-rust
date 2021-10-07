@@ -34,7 +34,7 @@ It can also be installed manually.
 
 1. Download the WPBridge plugin from [WordPress.org](https://wordpress.org/plugins/wpbridge-for-rust/).
 2. Unzip the package and move it to your plugins directory.
-3. Log into WordPress and navigate to the Plugins screen.
+3. Log into your WordPress backend and navigate to the Plugins screen.
 4. Locate WPBridge in the list and click the **Activate** link.
 
 ## How to configure
