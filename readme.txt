@@ -43,11 +43,38 @@ WPBridge is a WordPress plugin that enables you to show nearly real time server 
 [Mystic Gray](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_1.json)
 [Sunrise Sweets](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_2.json)
 
+== Screenshots ==
+
+1. WPBridge for Rust Settings
+2. Shortcode Usage
+
+#### Shortcodes
+
+> `[wpbridge_server_REPLACEWITHSERVERSTAT]`
+> `REPLACEWITHSERVERSTAT` = The server stat that you want to show.
+> 
+> #### Server stats
+> ip
+> port
+> level
+> identity
+> seed
+> worldsize
+> maxplayers
+> hostname
+> description
+> Updated
+>
+> ** The shortcode returns the respective server variable requested. **
+>
+> ** Example 1: ** `[wpbridge_server_ip]` will return the current external ip for your server.
+> ** Example 2: ** `[wpbridge_server_identity]` will return the current identity set on your server.
+> ** Example 3: ** `[wpbridge_server_description]` will return the current description set on your server.
+
 == Coming soon ==
 
 * More shortcodes
 * More WordPress templates
-
 
 == Security ==
 
