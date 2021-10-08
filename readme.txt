@@ -1,4 +1,4 @@
-=== WPBridge for Rust ===
+=== WPBridge ===
 Contributors: danlevi
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T7FNEG2D2ELC8
 Tags: rust, gaming, rest, rest-api
