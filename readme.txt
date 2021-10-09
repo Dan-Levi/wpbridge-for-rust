@@ -5,7 +5,7 @@ Tags: rust, gaming, rest, rest-api
 Requires at least: 5.8
 Tested up to: 5.8.1
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 1.0.11
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
  
@@ -48,12 +48,12 @@ WPBridge is a WordPress plugin that enables you to show nearly real time server 
 1. WPBridge for Rust Settings
 2. Shortcode Usage
 
-#### Shortcodes
+== Shortcodes ==
 
-> `[wpbridge_server_REPLACEWITHSERVERSTAT]`
-> `REPLACEWITHSERVERSTAT` = The server stat that you want to show.
+> [wpbridge_server_REPLACEWITHSERVERSTAT]
+> REPLACEWITHSERVERSTAT = The server stat that you want to show.
 > 
-> #### Server stats
+> ### Server stats
 > ip
 > port
 > level
