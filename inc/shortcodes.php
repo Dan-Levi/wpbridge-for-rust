@@ -41,6 +41,10 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         if(is_array($queryResult) && count($queryResult) == 1)
         {
             $data = $queryResult[0];
+            if($data->numactiveplayers == 0)
+            {
+                return '<span style="display:block;text-align:center;">No players online at the moment</a>';
+            }
             $percentage = (int)($data->numactiveplayers * 100 / $data->maxplayers);
             $markup = '
             <div class="wpbridge-widget-container wpbridge-progressbar">';
