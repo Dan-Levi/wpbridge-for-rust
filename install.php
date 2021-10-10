@@ -26,15 +26,6 @@ class WPB_F_R_WPBRIDGE_INSTALL
     {
         require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
 
-        if(defined('WPBRIDGE_NEEDS_UPGRADE'))
-        {
-            try {
-                $this->_wpdb->query("DROP TABLE IF EXISTS `".esc_sql(WPBRIDGE_SETTINGS_TABLE)."`");
-                $this->_wpdb->query("DROP TABLE IF EXISTS `".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE)."`");
-            } catch(Exception $e){} //If it's not there, dont do anything
-            update_option('WPBRIDGE_PLUGIN_VERSION',esc_html(WPBRIDGE_PLUGIN_VERSION));
-        }
-
         $sql = "CREATE TABLE IF NOT EXISTS `".esc_sql(WPBRIDGE_SETTINGS_TABLE)."` (
             id                  INT(11)         NOT NULL AUTO_INCREMENT,
             ip                  VARCHAR(255)    DEFAULT '',
