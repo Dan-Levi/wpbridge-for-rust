@@ -54,10 +54,10 @@ class WPB_F_R_WPBRIDGE
      */
     public function WPB_F_R_CheckVersion()
     {
-        $plugin_version = get_option('WPBRIDGE_PLUGIN_VERSION',0);
-        if(WPBRIDGE_PLUGIN_VERSION > $plugin_version)
+        $local_plugin_version = get_option('WPBRIDGE_PLUGIN_VERSION','0.0.0');
+        if(version_compare(WPBRIDGE_PLUGIN_VERSION,$local_plugin_version,'>='))
         {
-            define('WPBRIDGE_NEEDS_UPGRADE',1);
+            require_once WPBRIDGE_PATH . 'update.php';
         }
     }
 
