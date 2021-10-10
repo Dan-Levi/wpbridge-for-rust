@@ -42,5 +42,5 @@ define( 'WPBRIDGE_PLAYER_STATS', [
     'rocketslaunched',      
     'antihackviolations',   
     'npcspeaks',            
-    'researcheditems'  
+    'researcheditems'
 ]);
