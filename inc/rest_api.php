@@ -22,12 +22,14 @@ class WPB_F_R_WPBRIDGE_REST_API
                 'callback' => [$this,"WPB_F_R_Player_Stats_POST_Callback"],
                 'permission_callback' => '__return_true'
             ));
+            
          });
     }
 
+    
+
     function WPB_F_R_UpdateSettings($serverInfo)
     {
-
         if(!isset($serverInfo["Ip"])) return $this->WPB_F_R_ReturnError(401,"IP not set");
         if(!isset($serverInfo["Port"])) return $this->WPB_F_R_ReturnError(401,"server.port not set");
         if(!isset($serverInfo["Level"])) return $this->WPB_F_R_ReturnError(401,"server.level not set");
@@ -124,6 +126,7 @@ class WPB_F_R_WPBRIDGE_REST_API
     function WPB_F_R_Player_Stats_POST_Callback($req)
     {
         if(!isset($req["Secret"])) return $this->WPB_F_R_ReturnError(401,"Secret not set");
+        if($req["Secret"] != get_option('wpbridge_secret_field')) return $this->WPB_F_R_ReturnError(401,"Secret mismatch");
         if(!isset($req["PlayersData"])) return $this->WPB_F_R_ReturnError(401,"PlayersData not set");
         if(!isset($req["ServerInfo"]) || !is_array($req["ServerInfo"])) return $this->WPB_F_R_ReturnError(401,"ServerInfo not set");
         
@@ -142,6 +145,8 @@ class WPB_F_R_WPBRIDGE_REST_API
     {
         if(!isset($req["Secret"])) return $this->WPB_F_R_ReturnError(401,"Secret not set");
         if($req["Secret"] != get_option('wpbridge_secret_field')) return $this->WPB_F_R_ReturnError(401,"Secret mismatch");
+        if(!isset($req["ServerInfo"]) || !is_array($req["ServerInfo"])) return $this->WPB_F_R_ReturnError(401,"ServerInfo not set");
+        $this->WPB_F_R_UpdateSettings($req["ServerInfo"]);
         return $this->WPB_F_R_ReturnSuccess(200, "Ready");
     }
 
