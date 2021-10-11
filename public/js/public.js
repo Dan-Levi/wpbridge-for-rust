@@ -35,16 +35,21 @@ async function UpdateHeaderServerStatusElem($)
 async function UpdatePlayerCountElem($)
 {
     const playerCountElem = $(".rust-server-api-player-count");
+    
     if(playerCountElem.length > 0)
     {
-        let serverId = playerCountElem.data('id');
-        let data = await RustServerAPIFetchPlayerInfo(serverId);
-        if(data.length > 0)
-        {
-            playerCountElem.text(`Active Players | ${data.length} online at the moment`);
-        } else
-        {
-            playerCountElem.text(`No Players online at the moment`);
+        for (let i = 0; i < playerCountElem.length; i++) {
+            const currentPlayerCountElem = playerCountElem[i];
+            let serverId = $(currentPlayerCountElem).data('id');
+            let data = await RustServerAPIFetchPlayerInfo(serverId);
+        
+            if(data.length > 0)
+            {
+                $(currentPlayerCountElem).text(`Active Players | ${data.length} online at the moment`);
+            } else
+            {
+                $(currentPlayerCountElem).text(`No Players online at the moment`);
+            }
         }
     }
 }
@@ -52,6 +57,7 @@ async function UpdatePlayerCountElem($)
 async function UpdatePlayerListElem($)
 {
     const playerListElem = $(".rust-server-api-player-list");
+    
     if(playerListElem.length > 0)
     {
         let serverId = playerListElem.data('id');
@@ -75,6 +81,7 @@ async function UpdatePlayerListElem($)
 
 async function RustServerAPIFetchPlayerInfo(serverId)
 {
+    
     const json = await RustServerAPIFetch(serverId,"players");
     if(!json) console.error(`Unable to fetch players from api.rust-servers.info for server: ${serverId}`);
     return json;
@@ -89,7 +96,9 @@ async function RustServerAPIFetchServerInfo(serverId)
 
 async function RustServerAPIFetch(serverId, type)
 {
+
     const serverStatusEndpoint = `https://api.rust-servers.info/${type}/${serverId}`;
+    
     try {
         let response = await fetch(serverStatusEndpoint);
         return await response.json();
