@@ -14,6 +14,7 @@ class WPB_F_R_WPBRIDGE_SETTINGS
     function WPB_F_R_Add_Actions()
     {
         add_action('admin_menu', [$this,"WPB_F_R_SetupSettingsMenu"]);
+        add_action('admin_menu', [$this,'WPB_F_R_Add_Player_Statistics_SubMenu']);
         add_action('admin_enqueue_scripts', [$this,"WPB_F_R_InitAdminJavaScript"]);
         add_action('admin_init', [$this,"WPB_F_R_SetupSecretSection"]);
         add_action('admin_init', [$this,'WPB_F_R_Url_HandlerPurgeDatabase']);
@@ -110,7 +111,35 @@ class WPB_F_R_WPBRIDGE_SETTINGS
             'dashicons-admin-links',
             null
         );
-        
+    }
+
+    function WPB_F_R_Add_Player_Statistics_SubMenu()
+    {
+        add_submenu_page(
+            'wpbridge-settings-page',
+            '',
+            '',
+            'manage_options',
+            'wpbridge-purge-statistics-database',
+            [$this,'WPB_F_R_Player_Statistics_SubMenu_Template_Callback']
+        );
+    }
+    // http://192.168.0.57/wp-admin/admin.php?page=wpbridge-purge-statistics-database
+    function WPB_F_R_Player_Statistics_SubMenu_Template_Callback()
+    {
+        if (!current_user_can('manage_options')) wp_die(__('Your user don\'t have permissions to do that action.','wpbridge-for-rust'));
+        global $wpdb;
+        $queryPlayerNum = $wpdb->get_row("SELECT COUNT(*) as `numplayers` FROM `".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE)."`;");
+        $wpdb->query("TRUNCATE TABLE `".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE)."`;");
+        ?>
+        <div class="wrap">
+            <h3><?php echo __('WPBridge for Rust - Settings', 'wpbridge-for-rust'); ?></h3>
+            <hr />
+            <h1><?php echo $queryPlayerNum->numplayers . " " .  __('Players successfully purged','wpbridge-for-rust'); ?></h1>
+            <br>
+            <a href="?page=wpbridge-settings-page" class="button button-primary button-warning"><?php echo __('Go back', 'wpbridge-for-rust'); ?></a>
+        </div>
+        <?php
     }
 
     function WPB_F_R_wpbridge_settings_template_callback()
@@ -120,15 +149,24 @@ class WPB_F_R_WPBRIDGE_SETTINGS
             <div class="wrap">
                 <h3><?php echo esc_html( get_admin_page_title() ) . ' ' . __(' - Settings', 'wpbridge-for-rust'); ?></h3>
                 <hr />
-
-                <h1><?php echo __('Secret','wpbridge-for-rust'); ?></h1>
+                <!-- <h1><?php echo __('Secret','wpbridge-for-rust'); ?></h1> -->
                 <?php settings_fields('wpbridge-settings-page'); ?>
                 <?php do_settings_sections('wpbridge-settings-page');?>
 
-                <h1><?php echo __('Player Database','wpbridge-for-rust'); ?></h1>
+                <!-- <h1><?php echo __('Data','wpbridge-for-rust'); ?></h1> -->
                 <br>
-                <button id="wpbridge_database_purge_players_button" class="button button-primary button-warning"><?php echo __('Purge', 'wpbridge-for-rust'); ?></button>
-                <h3 id="wpbridge_database_purge_players_result_message_elem" style="display:none;">Player data successfully purged.</h3>
+                <table class="form-table" role="presentation">
+                    <tbody>
+                        <tr>
+                            <th scope="row"><?php echo __('Player Statistics','wpbridge-for-rust'); ?></th>
+                            <td>
+                                <a href="?page=wpbridge-purge-statistics-database" id="wpbridge_database_purge_players_button" class="button button-primary button-warning">
+                                    <?php echo __('Clear', 'wpbridge-for-rust'); ?>
+                                </a>
+                            </td>
+                        </tr>      
+                    </tbody>
+                </table>
                 <hr />
                 <?php submit_button( __('Save Settings', 'wpbridge-for-rust') ); ?>
             </div>
