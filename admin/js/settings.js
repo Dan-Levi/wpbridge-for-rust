@@ -17,35 +17,11 @@ wpbridge_secret_generate_button.on('click', (e) => {
 const wpbridge_database_purge_players_button = $("#wpbridge_database_purge_players_button");
 wpbridge_database_purge_players_button.on('click', (e) => {
     e.preventDefault();
-    if(confirm("Are you sure you want to purge all player data?"))
+    if(confirm("Are you sure you want to clear all player data?"))
     {
-        window.location.replace("/wp-admin/admin.php?page=wpbridge-settings-page&action=purge_player_database");
+        window.location.replace("?page=wpbridge-purge-statistics-database");
     }
 });
-
-/**
- * GET Params
- */
-let getParams = new URLSearchParams(window.location.search);
-if(getParams.has('page') && getParams.has('result'))
-{
-    const page = getParams.get('page');
-    const result = getParams.get('result');
-    if(page == 'wpbridge-settings-page')
-    {
-        if (result == 'purge_player_database')
-        {
-            const wpbridge_database_purge_players_result_message_elem = $("#wpbridge_database_purge_players_result_message_elem");
-            wpbridge_database_purge_players_result_message_elem.fadeIn(200, function() {
-                setTimeout(function() {
-                    wpbridge_database_purge_players_result_message_elem.fadeOut(200);
-                },3000);
-            });
-            window.history.pushState("data","Title",'/wp-admin/admin.php?page=wpbridge-settings-page');
-            
-        } 
-    }
-}
 
 })(jQuery)
 
