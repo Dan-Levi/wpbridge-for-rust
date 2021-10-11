@@ -41,7 +41,11 @@ WPBridge is a WordPress plugin that enables you to show nearly real time server 
 `Right Click -> Save to download template`
 
 [Mystic Gray](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_1.json)
+
 [Sunrise Sweets](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_2.json)
+
+[Dusty Dawn](https://wpbridge.danlevi.no/ElementorTemplates/WPBridge_Elementor_Template_3.json)
+
 
 == Screenshots ==
 
