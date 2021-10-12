@@ -100,12 +100,19 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         return '<strong><div id="header-rust-server-api-server-status" data-id="'.esc_html($id).'">Status: # Last restart: # days, # hrs ago.</div></strong>';
     }
 
-    function WPB_F_R_SteamConnectShortCodeFunc()
+    function WPB_F_R_SteamConnectShortCodeFunc($atts, $content = null, $tag = '')
     {
+        $buttonText = !isset($atts['text']) ? "Join now" : $atts['text'];
+        $buttonBackground = isset($atts['background']) ? 'background-color:'.$atts['background'].';' : 'background-color:#000000;';
+        $buttonTextColor = isset($atts['color']) ? "color:".$atts['color'].';':'color:white;';
+        $buttonAlignment = isset($atts['align']) ? "text-align:".$atts['align'].';':'text-align:center;';
+
         $result = $this->_wpdb->get_results("SELECT `ip`,`port` FROM `" . esc_sql(WPBRIDGE_SETTINGS_TABLE) . "` WHERE id = 1;");
         if(!is_array($result)) return "[SteamConnectShortCodeFunc] -> The shortcode produced an error NOT_ARRAY_EXCEPTION";
         if(!isset($result[0]->ip) || !isset($result[0]->port)) "[SteamConnectShortCodeFunc] -> The shortcode produced an error WPBRIDGE_DATABASE_COLUMN_MISSING_EXCEPTION";
-        return "steam://connect/".esc_html($result[0]->ip).":".esc_html($result[0]->port);
+        // return "steam//connect/".$result[0]->ip.":".$result[0]->port;
+        $buttonMarkup = '<div class="wpbridge_button_wrapper"><a style="'.$buttonBackground.' ' . $buttonTextColor . '" class="wpbridge_button" href="steam://connect/'.esc_html($result[0]->ip).":".esc_html($result[0]->port).'">'.$buttonText.'</a></div>';
+        return $buttonMarkup;
     }
 
     function WPB_F_R_ServerStatShortCodeFunc($atts, $content = null, $tag = '')

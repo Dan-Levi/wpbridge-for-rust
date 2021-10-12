@@ -67,6 +67,22 @@
 	background-color:rgba(55, 55, 55, .4);
 }
 
+/* Steam */
+
+.wpbridge_button_wrapper {
+	width:100%;
+	text-align:center;
+}
+
+.wpbridge_button {
+    opacity:0.8;
+    padding:10px 20px 10px 20px;
+}
+
+.wpbridge_button:hover {
+    opacity:1;
+}
+
 /* Widgets */
 
 .wpbridge-widget-container {
