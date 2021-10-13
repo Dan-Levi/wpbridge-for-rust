@@ -17,6 +17,7 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         add_shortcode("wpbridge_player_info", [$this,"WPB_F_R_RustServerAPIPlayerInfoShortCodeFunc"]);
         add_shortcode("wpbridge_server_info", [$this,"WPB_F_R_RustServerAPIServerInfoShortCodeFunc"]);
         
+        
         add_shortcode("wpbridge_steam_connect", [$this,"WPB_F_R_SteamConnectShortCodeFunc"]);
 
         //Progress_lines
@@ -32,6 +33,7 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         {
             add_shortcode(esc_html("wpbridge_server_$serverStat"), [$this,"WPB_F_R_ServerStatShortCodeFunc"]);
         }
+        add_shortcode(esc_html("wpbridge_server_num_active_players"), [$this,"WPB_F_R_ServerStatNumActivePlayersShortCodeFunc"]);
     }
 
     function WPB_F_R_ProgressLineNumPlayers($atts, $content = null, $tag = '')
@@ -113,6 +115,12 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         // return "steam//connect/".$result[0]->ip.":".$result[0]->port;
         $buttonMarkup = '<div class="wpbridge_button_wrapper"><a style="'.$buttonBackground.' ' . $buttonTextColor . '" class="wpbridge_button" href="steam://connect/'.esc_html($result[0]->ip).":".esc_html($result[0]->port).'">'.$buttonText.'</a></div>';
         return $buttonMarkup;
+    }
+
+    function WPB_F_R_ServerStatNumActivePlayersShortCodeFunc()
+    {
+        $result = $this->_wpdb->get_results("SELECT `numactiveplayers` FROM `" . esc_sql(WPBRIDGE_SETTINGS_TABLE) . "` WHERE id = 1;");
+        return $result[0]->numactiveplayers;
     }
 
     function WPB_F_R_ServerStatShortCodeFunc($atts, $content = null, $tag = '')
