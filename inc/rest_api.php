@@ -41,6 +41,7 @@ class WPB_F_R_WPBRIDGE_REST_API
         if(!isset($serverInfo["Description"])) return $this->WPB_F_R_ReturnError(401,"server.description not set");
         if(!isset($serverInfo["PlayerCount"])) return $this->WPB_F_R_ReturnError(401,"PlayerCount not set");
         $serverIp = str_replace("\n", "", $serverInfo["Ip"]);
+        $description = str_replace("\\n","<br>",$serverInfo["Description"]);
 
         global $wpdb;
         $sql = "UPDATE `".WPBRIDGE_SETTINGS_TABLE."` SET 
@@ -66,7 +67,7 @@ class WPB_F_R_WPBRIDGE_REST_API
                 esc_sql($serverInfo["WorldSize"]),
                 esc_sql($serverInfo["MaxPlayers"]),
                 esc_sql($serverInfo["HostName"]),
-                esc_sql($serverInfo["Description"]),
+                esc_sql($description),
                 esc_sql($serverInfo["PlayerCount"]),
             )
         );
@@ -90,7 +91,16 @@ class WPB_F_R_WPBRIDGE_REST_API
             }
         }
         $sql = chop($sql,',') . " WHERE `steamid` = '" . esc_sql($player["SteamId"]) . "';";
-        $wpdb->query($sql);
+        try {
+            $wpdb->query($sql);
+        } catch (Exception $err) {
+            return new WP_Error(
+                'error',
+                "Failed to update player statistics. Is Wordpress plugin outdated?",
+                array( 'status' => '401')
+            );
+            die();
+        }
     }
 
     function WPB_F_R_InsertPlayer($player)
