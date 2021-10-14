@@ -17,7 +17,6 @@ class WPB_F_R_WPBRIDGE_SETTINGS
         add_action('admin_menu', [$this,'WPB_F_R_Add_Player_Statistics_SubMenu']);
         add_action('admin_enqueue_scripts', [$this,"WPB_F_R_InitAdminJavaScript"]);
         add_action('admin_init', [$this,"WPB_F_R_SetupSecretSection"]);
-        add_action('admin_init', [$this,'WPB_F_R_Url_HandlerPurgeDatabase']);
     }
 
     function WPB_F_R_Add_Filters()
@@ -30,23 +29,6 @@ class WPB_F_R_WPBRIDGE_SETTINGS
         return $protocols;
     }
 
-    // Array ( [page] => wpbridge-settings-page [action] => purge_player_database )
-
-    function WPB_F_R_Url_HandlerPurgeDatabase()
-    {
-        if(is_admin())
-        {
-            if(isset($_GET['page']) && isset($_GET['action']))
-            {
-                if($_GET['page'] === "wpbridge-settings-page" && $_GET['action'] === "purge_player_database")
-                {
-                    global $wpdb;
-                    $wpdb->query("TRUNCATE `" . esc_sql(WPBRIDGE_PLAYER_STATS_TABLE) . "`;");
-                    header("location: /wp-admin/admin.php?page=wpbridge-settings-page&result=purge_player_database");
-                }
-            }
-        }
-     }
 
     function WPB_F_R_InitAdminJavaScript()
     {
@@ -129,13 +111,13 @@ class WPB_F_R_WPBRIDGE_SETTINGS
     {
         if (!current_user_can('manage_options')) wp_die(__('Your user don\'t have permissions to do that action.','wpbridge-for-rust'));
         global $wpdb;
-        $queryPlayerNum = $wpdb->get_row("SELECT COUNT(*) as `numplayers` FROM `".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE)."`;");
         $wpdb->query("TRUNCATE TABLE `".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE)."`;");
+        $wpdb->query("TRUNCATE TABLE `".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE)."`;");
         ?>
         <div class="wrap">
             <h3><?php echo __('WPBridge for Rust - Settings', 'wpbridge-for-rust'); ?></h3>
             <hr />
-            <h1><?php echo $queryPlayerNum->numplayers . " " .  __('Players successfully purged','wpbridge-for-rust'); ?></h1>
+            <h1><?php echo __('Players and loot successfully cleared.','wpbridge-for-rust'); ?></h1>
             <br>
             <a href="?page=wpbridge-settings-page" class="button button-primary button-warning"><?php echo __('Go back', 'wpbridge-for-rust'); ?></a>
         </div>
