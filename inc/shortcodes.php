@@ -34,6 +34,71 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
             add_shortcode(esc_html("wpbridge_server_$serverStat"), [$this,"WPB_F_R_ServerStatShortCodeFunc"]);
         }
         add_shortcode(esc_html("wpbridge_server_num_active_players"), [$this,"WPB_F_R_ServerStatNumActivePlayersShortCodeFunc"]);
+        
+        $this->WPB_F_R_TopTotalLootInit();
+    }
+    
+    function WPB_F_R_TopTotalLootInit()
+    {
+        $existing_columns = $this->_wpdb->get_col("DESC `".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE)."`",0);
+        foreach ($existing_columns as $column) {
+            if($column == "id" || $column == "steamid") continue;
+            add_shortcode("wpbridge_top_loot_$column", [$this,"WPB_F_R_TopLootShortCodeFunc"]);
+            add_shortcode("wpbridge_total_loot_$column", [$this,"WPB_F_R_TotalLootShortCodeFunc"]);
+        }
+    }
+
+    function WPB_F_R_TotalLootShortCodeFunc($atts, $content = null, $tag = '')
+    {
+        $stat = str_replace("wpbridge_total_loot_","",$tag);
+        $queryResult = $this->_wpdb->get_results(" SELECT SUM(`" . esc_sql($stat) . "`) AS `" . esc_sql($stat) . "` FROM `" . esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE) . "` ;");
+        if(is_array($queryResult) && count($queryResult) === 1)
+        {
+            return $queryResult[0]->$stat;
+        }
+        return "#";
+    }
+
+    function WPB_F_R_TopLootShortCodeFunc($atts, $content = null, $tag = '')
+    {
+        
+        $stat = str_replace("wpbridge_top_loot_","",$tag);
+        $num = 1;
+        if(isset($atts['num']) && (int)$atts['num'] > 0) $num = $atts['num'];
+        $topLootPlayers = $this->_wpdb->get_results("   
+            SELECT ".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE).".`displayname`,".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE).".`".esc_sql($stat)."` 
+            FROM ".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE)." 
+            INNER JOIN ".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE)." 
+            ON ".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE).".`steamid` = ".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE).".`steamid` ORDER BY ".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE).".`".esc_sql($stat)."` DESC LIMIT ". esc_sql($num) .";");
+            if(!$topLootPlayers || count($topLootPlayers) == 0) return "No data";
+            if($num == 1)
+            {
+                $player = $topLootPlayers[0];
+                if(isset($atts["name"]) && $atts["name"] == "false")
+                {
+                    return $player->$stat;
+                }
+                return $player->displayname . " has " . $player->$stat . " " . $stat;
+            }
+            
+            $markup = "
+            <span class='wpbridge-shortcode'>
+            <table>
+            <tbody>";
+            
+            foreach ($topLootPlayers as $player) {
+                $markup .= "
+                <tr>
+                <td>". esc_html($player->displayname) ."</td>
+                <td>". esc_html($player->$stat) ."</td>
+                </tr>";
+            }
+                $markup .= "
+                    </tbody>
+                </table>
+            </span>
+            ";
+            return $markup;
     }
 
     function WPB_F_R_ProgressLineNumPlayers($atts, $content = null, $tag = '')
@@ -78,12 +143,9 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
             ';
             }
 
-
             $markup .= '
             </div>
             ';
-
-
         }
         return $markup;
     }
