@@ -12,7 +12,19 @@ class WPB_F_R_WPBRIDGE_UPDATE
         $this->_wpdb = $wpdb;
         $this->WPB_F_R_UpdatePlayersDataTable();
         $this->WPB_F_R_UpdateSettingsTable();
+        $this->WPB_F_R_UpdateLootDataTable();
         $this->WPB_F_R_BumpVersion();
+    }
+
+    function WPB_F_R_UpdateLootDataTable()
+    {
+        $sql = "CREATE TABLE IF NOT EXISTS `".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE)."` (
+            `id`                        INT(11)         NOT NULL AUTO_INCREMENT,
+            `steamid`                   BIGINT(100)     NOT NULL,
+            PRIMARY KEY (`id`)
+        ) $this->_charset_collate;";
+        require_once( ABSPATH . 'wp-admin/includes/upgrade.php' );
+        dbDelta($sql);
     }
     
     function WPB_F_R_UpdatePlayersDataTable()
