@@ -80,7 +80,18 @@ class WPB_F_R_WPBRIDGE_REST_API
         $existingPlayer = $wpdb->get_row($wpdb->prepare($sql, $player["SteamId"] ));
         $sql = "UPDATE `". esc_sql(WPBRIDGE_PLAYER_STATS_TABLE) ."` SET ";
         foreach (array_keys($player) as $requestValue) {
-            if($requestValue == "SteamId") continue;
+            if($requestValue == "LootedItems")
+            {
+
+                $lootStats = $player[$requestValue];
+                if(count($lootStats) > 0) $this->WPB_F_R_StorePlayerLoot($player["SteamId"],$lootStats);
+                continue;
+            }
+            if($requestValue == "SteamId")
+            {
+                continue;
+            }
+         
             $columnName = strtolower($requestValue);
             if($columnName == "displayname")
             {
@@ -103,12 +114,70 @@ class WPB_F_R_WPBRIDGE_REST_API
         }
     }
 
+    function WPB_F_R_StorePlayerLoot($steamId, $items)
+    {
+        // die(print_r($items));
+        global $wpdb;
+        if($wpdb->get_var("SHOW TABLES LIKE '".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE)."'") == WPBRIDGE_PLAYER_LOOT_TABLE);
+        {
+            $existing_columns = $wpdb->get_col("DESC `".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE)."`",0);
+            foreach ($items as $item) {
+                if(!in_array($item["Name"],$existing_columns))
+                {
+                    $wpdb->query("ALTER TABLE `".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE)."` ADD `".esc_sql(strtolower(trim($item["Name"])))."` INT(11) NOT NULL;");
+                }
+            }
+            
+            $sql = "SELECT `steamid` FROM `". esc_sql(WPBRIDGE_PLAYER_STATS_TABLE) ."` WHERE `steamid` = '%d';";
+            $queryResultPlayerExistsInStatsTable = $wpdb->query($wpdb->prepare($sql,$steamId));
+            if($queryResultPlayerExistsInStatsTable)
+            {
+                $sql = "SELECT * FROM `". esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE) ."` WHERE `steamid` = '%d';";
+                $queryResultPlayerExistsInLootTable = $wpdb->get_row($wpdb->prepare($sql,$steamId));
+                
+                if($queryResultPlayerExistsInLootTable)
+                {
+                    $sql = "UPDATE `". esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE) ."` SET ";
+                    foreach ($items as $item) {
+                        $sql .= "`" . esc_sql($item["Name"]) . "` = '" . ((int)$queryResultPlayerExistsInLootTable->{$item["Name"]} + (int)($item["Amount"])) . "',";
+                    }
+                    $sql = chop($sql,',') . " WHERE `steamid` = '" . esc_sql($steamId) . "';";
+                    $wpdb->query($sql);
+                } else {
+                    $sqlStart = "INSERT INTO `".WPBRIDGE_PLAYER_LOOT_TABLE."`(";
+                    $sqlStart .= "`steamid`,";
+                    $sqlEnd = "'" . esc_sql($steamId) . "',";
+                    foreach ($items as $item) {
+                        $columnName = strtolower(trim($item["Name"]));
+                        $sqlStart .= "`" . esc_sql($columnName) . "`,";
+                        $sqlEnd .= "'" . esc_sql($item["Amount"]) . "',";
+                    }
+                    $sqlStart = chop($sqlStart,',') . ") VALUES (";
+                    $sqlEnd = chop($sqlEnd,',') . ");";
+                    $sql = $sqlStart . $sqlEnd;
+                    $wpdb->query($sql);
+                }
+            }
+        }
+    }
+
     function WPB_F_R_InsertPlayer($player)
     {
         global $wpdb;
         $sqlStart = "INSERT INTO `". esc_sql(WPBRIDGE_PLAYER_STATS_TABLE) ."`(";
         $sqlEnd = "";
         foreach (array_keys($player) as $requestValue) {
+
+
+            if($requestValue == "LootedItems")
+            {
+
+                $lootStats = $player[$requestValue];
+                if(count($lootStats) > 0) $this->WPB_F_R_StorePlayerLoot($player["SteamId"],$lootStats);
+                continue;
+            }
+
+
             $columnName = strtolower($requestValue);
             $sqlStart .= "`" . esc_sql($columnName) . "`,";
             $sqlEnd .= "'" . esc_sql($player[$requestValue]) . "',";
