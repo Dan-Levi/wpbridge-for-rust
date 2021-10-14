@@ -4,6 +4,7 @@ define( 'WPBRIDGE_PLUGIN_VERSION', $this->plugin_version);
 
 define( 'WPBRIDGE_SETTINGS_TABLE', $wpdb->prefix . 'wpbridge_settings' );
 define( 'WPBRIDGE_PLAYER_STATS_TABLE', $wpdb->prefix . 'wpbridge_player_stats' );
+define( 'WPBRIDGE_PLAYER_LOOT_TABLE', $wpdb->prefix . 'wpbridge_player_loots' );
 define( 'WPBRIDGE_SERVER_STATS', [
     'ip',
     'port',
