@@ -211,8 +211,6 @@ class WPB_F_R_WPBRIDGE_SETTINGS
         ?>
         <a href="?page=wpbridge-rustmapapi-gen" class="button button-primary"><?php echo __('Generate map', 'wpbridge-for-rust'); ?></a>
         <?php
-        $rustMapImage = get_option('wpbridge_rustmapapigeneratedfilename','');
-        var_dump($rustMapImage);
         }
         ?>
 
