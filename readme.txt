@@ -20,7 +20,8 @@ WPBridge is a WordPress plugin that enables you to show nearly real time server 
 * Communication with a Rust server with uMod/Oxide that has the WPBridge for WordPress plugin installed and configured.
 * Communicates via WordPress REST API and saves the data to database.
 * Implements several shortcodes.
-* rust-servers.info's API integration.
+* rust-servers.info integration.
+* rustmaps.com integration.
 
 == Installation ==
 
