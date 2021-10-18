@@ -16,11 +16,12 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
     {
         add_shortcode("wpbridge_player_info", [$this,"WPB_F_R_RustServerAPIPlayerInfoShortCodeFunc"]);
         add_shortcode("wpbridge_server_info", [$this,"WPB_F_R_RustServerAPIServerInfoShortCodeFunc"]);
+        add_shortcode("wpbridge_rustmap", [$this,"WPB_F_R_RustMap"]);
         
         
         add_shortcode("wpbridge_steam_connect", [$this,"WPB_F_R_SteamConnectShortCodeFunc"]);
 
-        //Progress_lines
+        //Progress_bars
         add_shortcode("wpbridge_progress_num_players", [$this, "WPB_F_R_ProgressLineNumPlayers"]);
 
         
@@ -36,6 +37,12 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         add_shortcode(esc_html("wpbridge_server_num_active_players"), [$this,"WPB_F_R_ServerStatNumActivePlayersShortCodeFunc"]);
         
         $this->WPB_F_R_TopTotalLootInit();
+    }
+
+    function WPB_F_R_RustMap($atts, $content = null, $tag = '')
+    {
+        $settings = $this->_wpdb->get_row("SELECT `seed`, `worldsize` FROM `" . WPBRIDGE_SETTINGS_TABLE . "` WHERE id = 1");
+        return get_site_url(null, '/wp-content/uploads/RustMap_' . $settings->seed . '_' . $settings->worldsize . '.png');
     }
     
     function WPB_F_R_TopTotalLootInit()
