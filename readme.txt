@@ -1,11 +1,11 @@
 === WPBridge for Rust ===
 Contributors: danlevi
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=T7FNEG2D2ELC8
-Tags: rust, gaming, rest, rest-api
+Tags: rust, rustadmin, playrust, facepunch, gaming, rest, rest-api
 Requires at least: 5.8
 Tested up to: 5.8.1
 Requires PHP: 7.4
-Stable tag: 1.0.130
+Stable tag: 1.0.131
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
  
@@ -20,8 +20,8 @@ WPBridge is a WordPress plugin that enables you to show nearly real time server 
 * Communication with a Rust server with uMod/Oxide that has the WPBridge for WordPress plugin installed and configured.
 * Communicates via WordPress REST API and saves the data to database.
 * Implements several shortcodes.
-* rust-servers.info integration.
-* rustmaps.com integration.
+* rust-servers.info integration. 
+* rustmaps.com integration - **Automatically generate the current map.** 
 
 == Installation ==
 
