@@ -42,7 +42,8 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
     function WPB_F_R_RustMap($atts, $content = null, $tag = '')
     {
         $settings = $this->_wpdb->get_row("SELECT `seed`, `worldsize` FROM `" . WPBRIDGE_SETTINGS_TABLE . "` WHERE id = 1");
-        return get_site_url(null, '/wp-content/uploads/RustMap_' . $settings->seed . '_' . $settings->worldsize . '.png');
+        $imageAlt = wp_sprintf(__('Seed %s | World Size %s'),$settings->seed,$settings->worldsize);
+        return '<img src="' . get_site_url(null, '/wp-content/uploads/RustMap_' . $settings->seed . '_' . $settings->worldsize . '.png') . '" alt="' . $imageAlt . '" />';
     }
     
     function WPB_F_R_TopTotalLootInit()
