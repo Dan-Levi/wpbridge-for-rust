@@ -1,6 +1,6 @@
 (function($){
 "use strict"
-
+$("#wpbridge_settings_tabs").tabs();
 /**
  * Secret
  */
@@ -16,6 +16,15 @@ wpbridge_secret_generate_button.on('click', (e) => {
  */
 const wpbridge_database_purge_players_button = $("#wpbridge_database_purge_players_button");
 wpbridge_database_purge_players_button.on('click', (e) => {
+    e.preventDefault();
+    if(confirm("Are you sure you want to clear all player data?"))
+    {
+        window.location.replace("?page=wpbridge-purge-statistics-database");
+    }
+});
+
+const wpbridge_clear_statistics_elem = $(".wpbridge_clear_statistics_elem");
+wpbridge_clear_statistics_elem.on('click', (e) => {
     e.preventDefault();
     if(confirm("Are you sure you want to clear all player data?"))
     {
