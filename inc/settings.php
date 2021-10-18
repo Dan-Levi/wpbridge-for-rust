@@ -386,6 +386,8 @@ class WPB_F_R_WPBRIDGE_SETTINGS
 
     function WPB_F_R_wpbridge_settings_template_callback()
     {
+        global $wpdb;
+        $settings = $wpdb->get_row("SELECT `seed`,`worldsize` FROM `" . WPBRIDGE_SETTINGS_TABLE . "` WHERE id = 1");
         ?>
         <form action="options.php" method="post">
             <div class="wrap">
@@ -396,7 +398,14 @@ class WPB_F_R_WPBRIDGE_SETTINGS
                     <ul>
                         <li><a href="#wpbridge_server_settings_tab"><?php echo __('Server Settings'); ?></a></li>
                         <li><a href="#wpbridge_server_details_tab"><?php echo __('Server Details'); ?></a></li>
+                        <?php
+                        if($settings->seed != 0 && $settings->worldsize != 0)
+                        {
+                        ?>
                         <li><a href="#wpbridge_rustmaps_settings_tab"><?php echo __('RustMap API Settings'); ?></a></li>
+                        <?php
+                        }
+                        ?>
                     </ul>
                     <div id="wpbridge_server_settings_tab">
                         <?php do_settings_sections('wpbridge-settings-page');?>
@@ -416,9 +425,35 @@ class WPB_F_R_WPBRIDGE_SETTINGS
                     <div id="wpbridge_server_details_tab">
                         <?php do_settings_sections('wpbridge-server-details-page');?>
                     </div>
+                    <?php
+                    if($settings->seed != 0 && $settings->worldsize != 0)
+                    {
+                    ?>
                     <div id="wpbridge_rustmaps_settings_tab">
                         <?php do_settings_sections('wpbridge-settings-page-rustmap');?>
+                    
+                    <?php
+                    
+                    if($settings->seed == 0 || $settings->worldsize == 0 || !file_exists(WP_CONTENT_DIR . '/uploads/RustMap_' . $settings->seed . '_' . $settings->worldsize . '.png'))
+                    {
+                    $rustMapErrorText = wp_sprintf(__('Current map settings are invalid or last generated image file is missing, using seed %s and world size %s','wpbridge-for-rust'),$settings->seed,$settings->worldsize);
+                    ?>
+                    <h3><?php echo $rustMapErrorText; ?></h3>
+                    <?php    
+                    } else
+                    {
+                        $rustMapDetailText = wp_sprintf(__('Current map using seed %s and world size %s','wpbridge-for-rust'),$settings->seed,$settings->worldsize);
+                    ?>
+                    <hr>
+                    <h3><?php echo $rustMapDetailText; ?></h3>
+                    <img src="<?php echo content_url() . '/uploads/RustMap_' . $settings->seed . '_' . $settings->worldsize . '.png'; ?>" width="400" height="400">
+                    <?php
+                    }
+                    ?>
                     </div>
+                    <?php
+                    }
+                    ?>
                 </div>
                 <?php echo submit_button(); ?>
             </div>
