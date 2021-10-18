@@ -17,12 +17,16 @@ class WPB_F_R_WPBRIDGE_UNINSTALL
         $wpdb->query($sql);
         $sql = "DROP TABLE IF EXISTS `".$wpdb->prefix . 'wpbridge_player_stats'."`;";
         $wpdb->query($sql);
+        $sql = "DROP TABLE IF EXISTS `".$wpdb->prefix . 'wpbridge_player_loots'."`;";
+        $wpdb->query($sql);
     }
 
     function WPB_F_R_DeleteOptions()
     {
         delete_option('wpbridge_secret_field');
         delete_option('WPBRIDGE_PLUGIN_VERSION');
+        delete_option('wpbridge_rustmapapigeneratedfilename');
+        delete_option('wpbridge_rustmapapi_field');
     }
 
     static function WPB_F_R_instance()
