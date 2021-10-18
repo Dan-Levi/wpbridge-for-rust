@@ -327,7 +327,7 @@ class WPB_F_R_WPBRIDGE_SETTINGS
                         } else {
                             $todayDate = new DateTime('NOW');
                             $todayDate = $todayDate->format('d_m_Y');
-                            $imageTitle = $todayDate . '_' . $settings->seed . '_' . $settings->worldsize;
+                            $imageTitle = 'RustMap_' . $settings->seed . '_' . $settings->worldsize;
                             $localFilePath = wp_upload_dir()['basedir'] . '/' . $imageTitle . '.png';
                             $localFileSrc = '/wp-content/uploads/' . $imageTitle . '.png';
                             file_put_contents($localFilePath,$responseGetImageFile);
