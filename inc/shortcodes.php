@@ -72,13 +72,29 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         
         $stat = str_replace("wpbridge_top_loot_","",$tag);
         $num = 1;
+        
+        $style = "";
+        if(isset($atts['color']) && $atts['color'])
+        {
+            $style .= "color:";
+            $style .= $atts['color'];
+            $style .= ";";
+        }
+
+        if(isset($atts['background']) && $atts['background'])
+        {
+            $style .= "background-color:";
+            $style .= $atts['background'];
+            $style .= ";";
+        }
+        
         if(isset($atts['num']) && (int)$atts['num'] > 0) $num = $atts['num'];
         $topLootPlayers = $this->_wpdb->get_results("   
             SELECT ".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE).".`displayname`,".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE).".`".esc_sql($stat)."` 
             FROM ".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE)." 
             INNER JOIN ".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE)." 
             ON ".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE).".`steamid` = ".esc_sql(WPBRIDGE_PLAYER_STATS_TABLE).".`steamid` ORDER BY ".esc_sql(WPBRIDGE_PLAYER_LOOT_TABLE).".`".esc_sql($stat)."` DESC LIMIT ". esc_sql($num) .";");
-            if(!$topLootPlayers || count($topLootPlayers) == 0) return "No data";
+            if(!$topLootPlayers || count($topLootPlayers) == 0) return "<span style='$style'>No data</span>";
             if($num == 1)
             {
                 $player = $topLootPlayers[0];
@@ -86,11 +102,12 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
                 {
                     return $player->$stat;
                 }
-                return $player->displayname . " has " . $player->$stat . " " . $stat;
+                return "<span style='$style'>".$player->displayname . " has " . $player->$stat . " " . $stat . "</span>";
             }
+
             
             $markup = "
-            <span class='wpbridge-shortcode'>
+            <span class='wpbridge-shortcode' style='$style'>
             <table>
             <tbody>";
             
@@ -222,21 +239,36 @@ class WPB_F_R_WPBRIDGE_SHORTCODES
         $num = 1;
         if(isset($atts['num']) && (int)$atts['num'] > 0) $num = $atts['num'];
         
+        $style = "";
+        if(isset($atts['color']) && $atts['color'])
+        {
+            $style .= "color:";
+            $style .= $atts['color'];
+            $style .= ";";
+        }
+
+        if(isset($atts['background']) && $atts['background'])
+        {
+            $style .= "background-color:";
+            $style .= $atts['background'];
+            $style .= ";";
+        }
+        
         $topPlayers = $this->_wpdb->get_results("SELECT `displayname`,`" . esc_sql($stat) . "` FROM `" . WPBRIDGE_PLAYER_STATS_TABLE . "` ORDER BY " . esc_sql($stat) . " DESC LIMIT " . esc_sql($num) . ";");
-        if(!$topPlayers || count($topPlayers) == 0) return "No data";
+        if(!$topPlayers || count($topPlayers) == 0) return "<span style='$style'>No data</span>";
 
         if($num == 1)
         {
             $player = $topPlayers[0];
             if(isset($atts["name"]) && $atts["name"] == "false")
             {
-                return $player->$stat;
+                return '<span style="' . $style . '">' . $player->$stat . '</span';
             }
             return $player->displayname . " has " . $player->$stat . " " . $stat;
         }
         
         $markup = "
-        <span class='wpbridge-shortcode'>
+        <span class='wpbridge-shortcode' style='" . $style . "'>
             <table>
                 <tbody>";
                 
