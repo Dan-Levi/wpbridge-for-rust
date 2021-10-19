@@ -406,6 +406,7 @@ class WPB_F_R_WPBRIDGE_SETTINGS
                         <?php
                         }
                         ?>
+                        <li><a href="#wpbridge_documentation_tab"><?php echo __('Documentation'); ?></a></li>
                     </ul>
                     <div id="wpbridge_server_settings_tab">
                         <?php do_settings_sections('wpbridge-settings-page');?>
@@ -454,6 +455,10 @@ class WPB_F_R_WPBRIDGE_SETTINGS
                     <?php
                     }
                     ?>
+                    <div id="wpbridge_documentation_tab">
+                        <h3>Eventually there will be an easier way to lookup documentation.</h3>
+                        For now, all documentation is only available at the <a target="_blank" href="https://wpbridge.danlevi.no/shortcode-documentation/">official website for WPBridge for Rust</a>
+                    </div>
                 </div>
                 <?php echo submit_button(); ?>
             </div>
